@@ -1,0 +1,73 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <title>Sandbox</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <style type="text/css" media="screen">
+        body {
+            background-color: #fff;
+            font: 16px Helvetica, Arial;
+            color: #000;
+        }
+
+        .display {
+            width: 300px;
+            height: 200px;
+            border: 2px solid #000;
+        }
+
+        .js .display {
+            display: none;
+        }
+    </style>
+    <script>
+        $('html').addClass('js');
+
+        $(function () {
+
+            var timer = setInterval(showDiv, 5000);
+
+            var counter = 0;
+
+            function showDiv() {
+                if (counter == 0) {
+                    counter++;
+                    return;
+                }
+
+                $('div', '#container')
+                    .stop()
+                    .hide()
+                    .filter(function () {
+                        return this.id.match('div' + counter);
+                    })
+                    .show('fast');
+                counter == 3 ? counter = 0 : counter++;
+
+            }
+
+        });
+    </script>
+</head>
+
+<body>
+    <h2>Example of using setInterval to trigger display of Div</h2>
+    <p>The first div will display after 10 seconds...</p>
+    <div id='container'>
+        <div id='div1' class='display' style="background-color: red;">
+            div1
+        </div>
+        <div id='div2' class='display' style="background-color: green;">
+            div2
+        </div>
+        <div id='div3' class='display' style="background-color: blue;">
+            div3
+        </div>
+        <div>
+</body>
+
+</html>
