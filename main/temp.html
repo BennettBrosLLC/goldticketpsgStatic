@@ -52,7 +52,7 @@
                     return;
                 }
 
-                $('div', '#rotationcontroller')
+                $('#div1, #div2, #div3')
                     .stop()
                     .hide()
                     .filter(function () {
@@ -90,15 +90,51 @@
 
         function showInfo(results) {
             var data = results.data;
-            // data comes through as a simple array since simpleSheet is turned on
-            document.getElementById("food").innerHTML =
-                "<strong>Last Updated:</strong> " +
-                [data[0].Timestamp];
             console.log(data);
+            var newHTML = [];
+            let txt = "";
+            // function Product(name, price) {
+            //     this.name = name;
+            //     this.price = price;
+            // }
+
+            // function Food(name, price) {
+            //     data.call(this, name, price);
+            //     this.category = 'mtgc';
+            // }
+            for (let i = 0; i < data.length; i++) {
+                console.log(data[i].system);
+            }
+            // console.log(new Food('cheese', 5).name);
+            // let mtgcpeeps = data.filter(word => { return mtgc.includes('mtgc'); })
+            // let mtgcpeeps = data.filter(data => data.system != "mtgc");
+            // filtArr = data.filter(name => name.includes('Retail'))
+            // console.log(mtgcpeeps)
+            document.getElementById("demo").innerHTML = txt;
+            // data.forEach(function (index, system) {
+            //     if (system = mtgc) {
+            //         $.each(data, function (index, name) {
+            //             newHTML.push('<span>' + name + '</span>');
+            //         })
+            //         $(".element").html(newHTML.join(""));
+            //         document.getElementById("food").innerHTML =
+            //             newHTML
+            //     }
+            //     console.log(item.id);
+            //     console.log(item.name);
+            // })
+            //     $.each(data, function (index, value) {
+            //         newHTML.push('<span>' + value + '</span>');
+            //     })
+            //     $(".element").html(newHTML.join(""));
+            //     document.getElementById("food").innerHTML =
+            //         "<strong>Last Updated:</strong> " +
+            //         [data[0].Timestamp];
+            //     console.log(data);
         }
     </script>
-    <div id='rotationcontroller'>
-        <div id='div1' class='display position-absolute top-50 start-50 translate-middle background-controller'>
+    <div id="rotationcontroller">
+        <div id="div1" class="display position-absolute top-50 start-50 translate-middle background-controller">
             <div class="container text-center">
                 <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
                     <div class="col">
@@ -134,11 +170,77 @@
                 </div>
             </div>
         </div>
-        <div id='div2' class='display position-absolute top-50 start-50 translate-middle background-controller'>
-            <h1 id="" class="text-white">div2</h1>
+        <div id="div2" class="display position-absolute top-50 start-50 translate-middle background-controller">
+            <div class="container text-center">
+                <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                    <div class="col">
+                        <div id="demo" class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id='div3' class='display position-absolute top-50 start-50 translate-middle background-controller'>
-            div3
+        <div id="div3" class="display position-absolute top-50 start-50 translate-middle background-controller">
+            <div class="container text-center">
+                <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                    <div class="col">
+                        <div class="p-3 border bg-light">Row column</div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div>
 </body>
