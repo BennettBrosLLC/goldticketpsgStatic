@@ -1,7 +1,7 @@
 $("html").addClass("js");
 
 $(function () {
-  var timer = setInterval(showDiv, 5000);
+  var timer = setInterval(showDiv, 10000);
 
   var counter = 0;
 
@@ -17,7 +17,7 @@ $(function () {
       .filter(function () {
         return this.id.match("div" + counter);
       })
-      .show("fast");
+      .show(900);
     counter == 3 ? (counter = 0) : counter++;
   }
 });

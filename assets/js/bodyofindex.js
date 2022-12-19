@@ -21,14 +21,12 @@ function showInfo(results) {
   let valuesAlreadySeenTwice = "";
   let valuesAlreadySeenThrice = "";
   let valuesAlreadySeenQuad = "";
-  let firstresults = false;
   let secondresults = false;
   let thirdresults = false;
   let fourthresults = false;
   const mtgcsystemfilter = data.filter((system) => {
     let i = 0;
     do {
-      let value = system[i];
       if (system.system === "mtgc" && system.Approved === "Y") {
         //if value has been seen once set results to true
         firstresults = valuesAlreadySeenOnce.includes(
@@ -75,14 +73,18 @@ function showInfo(results) {
       }
     } while (i < system.length);
   });
+  if (mtgcfirstbox == 0) {
+    mtgcfirstbox += "Maybe You?";
+  }
+  if (mtgcsecondbox == 0) {
+    mtgcsecondbox += "Maybe You?";
+  }
   if (mtgcthirdbox == 0) {
     mtgcthirdbox += "Maybe You?";
   }
-
-  console.log(mtgcfirstbox);
-  console.log(mtgcsecondbox);
-  console.log(mtgcthirdbox);
-  console.log(mtgcfourthbox);
+  if (mtgcfourthbox == 0) {
+    mtgcfourthbox += "Maybe You?";
+  }
   document.getElementById("mtgdemobox1").innerHTML = mtgcfirstbox;
   document.getElementById("mtgdemobox2").innerHTML = mtgcsecondbox;
   document.getElementById("mtgdemobox3").innerHTML = mtgcthirdbox;
