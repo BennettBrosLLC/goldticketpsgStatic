@@ -6,6 +6,12 @@ body {
   font: 16px Helvetica, Arial;
   color: #000;
 }
+.boardtopper {
+  height: 15vh;
+}
+.text-white .bg-dark {
+  opacity: 0.4;
+}
 
 .display {
   width: 300px;
