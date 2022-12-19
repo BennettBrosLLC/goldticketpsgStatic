@@ -1,0 +1,29 @@
+body {
+  background-image: url("../images/Stripped2.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #fff;
+  font: 16px Helvetica, Arial;
+  color: #000;
+}
+
+.display {
+  width: 300px;
+  height: 200px;
+}
+
+.js .display {
+  display: none;
+}
+
+.background-controller {
+  height: 90%;
+  width: 90%;
+  background-image: linear-gradient(
+      rgba(139, 83, 255, 0.5),
+      rgba(139, 83, 255, 0.5)
+    ),
+    url(../images/prosoul-games_large.jpg);
+  background-size: cover;
+  background-position: center;
+}

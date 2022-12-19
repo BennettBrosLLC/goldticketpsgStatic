@@ -11,155 +11,18 @@
     <title>Golden Ticket Race</title>
     <link rel="shortcut icon" href="//cdn.shopify.com/s/files/1/0316/2387/2648/files/Meeple_32x32.png?v=1659047483"
         type="image/png">
+    <link type="text/css" media="screen" href="assets/css/index.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <style type="text/css" media="screen">
-        body {
-            background-image: url("assets/images/Stripped2.png");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-color: #fff;
-            font: 16px Helvetica, Arial;
-            color: #000;
-        }
-
-        .display {
-            width: 300px;
-            height: 200px;
-        }
-
-        .js .display {
-            display: none;
-        }
-
-        .background-controller {
-            height: 90%;
-            width: 90%;
-            background-image: linear-gradient(rgba(139, 83, 255, .50), rgba(139, 83, 255, .50)), url(assets/images/prosoul-games_large.jpg);
-            background-size: cover;
-            background-position: center;
-        }
-    </style>
-    <script>
-        $('html').addClass('js');
-
-        $(function () {
-
-            var timer = setInterval(showDiv, 5000);
-
-            var counter = 0;
-
-            function showDiv() {
-                if (counter == 0) {
-                    counter++;
-                    return;
-                }
-
-                $('#div1, #div2, #div3')
-                    .stop()
-                    .hide()
-                    .filter(function () {
-                        return this.id.match('div' + counter);
-                    })
-                    .show('fast');
-                counter == 3 ? counter = 0 : counter++;
-
-            }
-
-        });
-    </script>
+    <script type="text/javascript" src="assets/js/topofindex.js"></script>
 </head>
-
-<!-- style="background-image: url('../assets/images/Stripped.gif');" -->
 
 <body>
     <script   src="https://code.jquery.com/jquery-3.6.2.min.js"
           integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA="   crossorigin="anonymous"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
-    <script type="text/javascript">
-        var public_spreadsheet_url =
-            "https://docs.google.com/spreadsheets/d/1YC4vzjepcRs5wcna0ZZFEPCcWJHKru-iZzKY3uWwuE4/pub?output=csv";
-
-        function init() {
-            Papa.parse(public_spreadsheet_url, {
-                download: true,
-                header: true,
-                complete: showInfo,
-            });
-        }
-
-        window.addEventListener("DOMContentLoaded", init);
-
-        function showInfo(results) {
-            var data = results.data;
-            var mtgcfirstbox = "";
-            var mtgcsecondbox = "";
-            var mtgcthirdbox = "";
-            var mtgcfourthbox = "";
-            let valuesAlreadySeenOnce = ""
-            let valuesAlreadySeenTwice = ""
-            let valuesAlreadySeenThrice = ""
-            let valuesAlreadySeenQuad = ""
-            let firstresults = false;
-            let secondresults = false;
-            let thirdresults = false;
-            let fourthresults = false;
-            const mtgcsystemfilter = data.filter((system) => {
-                let i = 0;
-                do {
-                    let value = system[i]
-                    if (system.system === 'mtgc' && system.Approved === 'Y') {
-                        //if value has been seen once set results to true
-                        firstresults = valuesAlreadySeenOnce.includes(JSON.stringify(system.name))
-                        valuesAlreadySeenOnce += JSON.stringify(system.name)
-                        if (firstresults = valuesAlreadySeenOnce.includes(JSON.stringify(system.name))) {
-                            secondresults = valuesAlreadySeenTwice.includes(JSON.stringify(system.name))
-                            valuesAlreadySeenTwice += JSON.stringify(system.name)
-                            if (secondresults) {
-                                thirdresults = valuesAlreadySeenThrice.includes(JSON.stringify(system.name))
-                                valuesAlreadySeenThrice += JSON.stringify(system.name)
-                                mtgcsecondbox += system.name + "<br>"
-                                mtgcfirstbox = mtgcfirstbox.replace(system.name + "<br>", "");
-
-                                if (thirdresults) {
-                                    fourthresults = valuesAlreadySeenQuad.includes(JSON.stringify(system.name))
-                                    valuesAlreadySeenQuad += JSON.stringify(system.name)
-                                    mtgcthirdbox += system.name + "<br>"
-                                    mtgcsecondbox = mtgcsecondbox.replace(system.name + "<br>", "");
-                                    mtgcsecondbox = mtgcsecondbox.replace(system.name + "<br>", "");
-                                    if (fourthresults) {
-                                        mtgcfourthbox += system.name + "<br>"
-                                        mtgcthirdbox = mtgcthirdbox.replace(system.name + "<br>", "");
-                                        mtgcthirdbox = mtgcthirdbox.replace(system.name + "<br>", "");
-                                        mtgcthirdbox = mtgcthirdbox.replace(system.name + "<br>", "");
-
-                                    }
-                                }
-                            } else {
-                                mtgcfirstbox += system.name + "<br>"
-                            }
-                            i++;
-                        }
-
-                    }
-                }
-                while (i < system.length)
-            })
-            if (mtgcthirdbox == 0) {
-                mtgcthirdbox += "Maybe You?"
-            }
-
-            console.log(mtgcfirstbox)
-            console.log(mtgcsecondbox)
-            console.log(mtgcthirdbox)
-            console.log(mtgcfourthbox)
-            document.getElementById("mtgdemobox1").innerHTML = mtgcfirstbox;
-            document.getElementById("mtgdemobox2").innerHTML = mtgcsecondbox;
-            document.getElementById("mtgdemobox3").innerHTML = mtgcthirdbox;
-            document.getElementById("mtgdemobox4").innerHTML = mtgcfourthbox;
-        }
-    </script>
+    <script type="text/javascript" src="assets/js/bodyofindex.js"></script>
     <div id="rotationcontroller">
         <div id="div1" class="display position-absolute p-5 top-50 start-50 translate-middle background-controller">
             <div class="container text-center">
