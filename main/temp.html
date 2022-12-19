@@ -15,6 +15,9 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <style type="text/css" media="screen">
         body {
+            background-image: url("../assets/images/Stripped2.png");
+            background-repeat: no-repeat;
+            background-size: cover;
             background-color: #fff;
             font: 16px Helvetica, Arial;
             color: #000;
@@ -90,51 +93,75 @@
 
         function showInfo(results) {
             var data = results.data;
-            console.log(data);
-            var newHTML = [];
-            let txt = "";
-            // function Product(name, price) {
-            //     this.name = name;
-            //     this.price = price;
-            // }
+            var mtgcfirstbox = "";
+            var mtgcsecondbox = "";
+            var mtgcthirdbox = "";
+            var mtgcfourthbox = "";
+            let valuesAlreadySeenOnce = ""
+            let valuesAlreadySeenTwice = ""
+            let valuesAlreadySeenThrice = ""
+            let valuesAlreadySeenQuad = ""
+            let firstresults = false;
+            let secondresults = false;
+            let thirdresults = false;
+            let fourthresults = false;
+            const mtgcsystemfilter = data.filter((system) => {
+                let i = 0;
+                do {
+                    let value = system[i]
+                    if (system.system === 'mtgc' && system.Approved === 'Y') {
+                        //if value has been seen once set results to true
+                        firstresults = valuesAlreadySeenOnce.includes(JSON.stringify(system.name))
+                        valuesAlreadySeenOnce += JSON.stringify(system.name)
+                        if (firstresults = valuesAlreadySeenOnce.includes(JSON.stringify(system.name))) {
+                            secondresults = valuesAlreadySeenTwice.includes(JSON.stringify(system.name))
+                            valuesAlreadySeenTwice += JSON.stringify(system.name)
+                            if (secondresults) {
+                                thirdresults = valuesAlreadySeenThrice.includes(JSON.stringify(system.name))
+                                valuesAlreadySeenThrice += JSON.stringify(system.name)
+                                mtgcsecondbox += system.name + "<br>"
+                                mtgcfirstbox = mtgcfirstbox.replace(system.name + "<br>", "");
 
-            // function Food(name, price) {
-            //     data.call(this, name, price);
-            //     this.category = 'mtgc';
-            // }
-            for (let i = 0; i < data.length; i++) {
-                console.log(data[i].system);
+                                if (thirdresults) {
+                                    fourthresults = valuesAlreadySeenQuad.includes(JSON.stringify(system.name))
+                                    valuesAlreadySeenQuad += JSON.stringify(system.name)
+                                    mtgcthirdbox += system.name + "<br>"
+                                    mtgcsecondbox = mtgcsecondbox.replace(system.name + "<br>", "");
+                                    mtgcsecondbox = mtgcsecondbox.replace(system.name + "<br>", "");
+                                    if (fourthresults) {
+                                        mtgcfourthbox += system.name + "<br>"
+                                        mtgcthirdbox = mtgcthirdbox.replace(system.name + "<br>", "");
+                                        mtgcthirdbox = mtgcthirdbox.replace(system.name + "<br>", "");
+                                        mtgcthirdbox = mtgcthirdbox.replace(system.name + "<br>", "");
+
+                                    }
+                                }
+                            } else {
+                                mtgcfirstbox += system.name + "<br>"
+                            }
+                            i++;
+                        }
+
+                    }
+                }
+                while (i < system.length)
+            })
+            if (mtgcthirdbox == 0) {
+                mtgcthirdbox += "Maybe You?"
             }
-            // console.log(new Food('cheese', 5).name);
-            // let mtgcpeeps = data.filter(word => { return mtgc.includes('mtgc'); })
-            // let mtgcpeeps = data.filter(data => data.system != "mtgc");
-            // filtArr = data.filter(name => name.includes('Retail'))
-            // console.log(mtgcpeeps)
-            document.getElementById("demo").innerHTML = txt;
-            // data.forEach(function (index, system) {
-            //     if (system = mtgc) {
-            //         $.each(data, function (index, name) {
-            //             newHTML.push('<span>' + name + '</span>');
-            //         })
-            //         $(".element").html(newHTML.join(""));
-            //         document.getElementById("food").innerHTML =
-            //             newHTML
-            //     }
-            //     console.log(item.id);
-            //     console.log(item.name);
-            // })
-            //     $.each(data, function (index, value) {
-            //         newHTML.push('<span>' + value + '</span>');
-            //     })
-            //     $(".element").html(newHTML.join(""));
-            //     document.getElementById("food").innerHTML =
-            //         "<strong>Last Updated:</strong> " +
-            //         [data[0].Timestamp];
-            //     console.log(data);
+
+            console.log(mtgcfirstbox)
+            console.log(mtgcsecondbox)
+            console.log(mtgcthirdbox)
+            console.log(mtgcfourthbox)
+            document.getElementById("mtgdemobox1").innerHTML = mtgcfirstbox;
+            document.getElementById("mtgdemobox2").innerHTML = mtgcsecondbox;
+            document.getElementById("mtgdemobox3").innerHTML = mtgcthirdbox;
+            document.getElementById("mtgdemobox4").innerHTML = mtgcfourthbox;
         }
     </script>
     <div id="rotationcontroller">
-        <div id="div1" class="display position-absolute top-50 start-50 translate-middle background-controller">
+        <div id="div1" class="display position-absolute p-5 top-50 start-50 translate-middle background-controller">
             <div class="container text-center">
                 <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
                     <div class="col">
@@ -170,20 +197,20 @@
                 </div>
             </div>
         </div>
-        <div id="div2" class="display position-absolute top-50 start-50 translate-middle background-controller">
+        <div id="div2" class="display position-absolute p-5 top-50 start-50 translate-middle background-controller">
             <div class="container text-center">
                 <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
                     <div class="col">
-                        <div id="demo" class="p-3 border bg-light">Row column</div>
+                        <div id="mtgdemobox1" class="p-3 border bg-light">Row column</div>
                     </div>
                     <div class="col">
-                        <div class="p-3 border bg-light">Row column</div>
+                        <div id="mtgdemobox2" class="p-3 border bg-light">Row column</div>
                     </div>
                     <div class="col">
-                        <div class="p-3 border bg-light">Row column</div>
+                        <div id="mtgdemobox3" class="p-3 border bg-light">Maybe You?</div>
                     </div>
                     <div class="col">
-                        <div class="p-3 border bg-light">Row column</div>
+                        <div id="mtgdemobox4" class="p-3 border bg-light">Row column</div>
                     </div>
                     <div class="col">
                         <div class="p-3 border bg-light">Row column</div>
@@ -206,7 +233,7 @@
                 </div>
             </div>
         </div>
-        <div id="div3" class="display position-absolute top-50 start-50 translate-middle background-controller">
+        <div id="div3" class="display position-absolute p-5 top-50 start-50 translate-middle background-controller">
             <div class="container text-center">
                 <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
                     <div class="col">
