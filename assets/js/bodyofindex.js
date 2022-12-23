@@ -10,7 +10,6 @@ function init() {
 }
 
 window.addEventListener("DOMContentLoaded", init);
-window.addEventListener("DOMContentLoaded", init2);
 
 function sortlogic(results) {
   var data = results.data;
