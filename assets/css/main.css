@@ -1,0 +1,63 @@
+body {
+  background: linear-gradient(#0007, #0000), #123;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.boardtopper {
+  height: 15vh;
+}
+.text-white .bg-dark {
+  opacity: 0.4;
+}
+
+.display {
+  width: 300px;
+  height: 200px;
+  animation: fadeIn ease 10s;
+  -webkit-animation: fadeIn ease 10s;
+  -moz-animation: fadeIn ease 10s;
+  -o-animation: fadeIn ease 10s;
+  -ms-animation: fadeIn ease 10s;
+}
+
+.js .display {
+  display: none;
+  animation: fadeOut ease 10s;
+  -webkit-animation: fadeIn ease 10s;
+  -moz-animation: fadeIn ease 10s;
+  -o-animation: fadeIn ease 10s;
+  -ms-animation: fadeIn ease 10s;
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+.material-icons.md-120 {
+  font-size: 120px;
+}
+.material-icons.md-25 {
+  font-size: 25px;
+}
+.background-controller {
+  height: 90%;
+  width: 90%;
+  background-image: linear-gradient(
+      rgba(139, 83, 255, 0.5),
+      rgba(139, 83, 255, 0.5)
+    ),
+    url(../images/prosoul-games_large.jpg);
+  background-size: cover;
+  background-position: center;
+}
