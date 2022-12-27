@@ -1,9 +1,12 @@
+
+//Define URLs for Data Import
 var responses =
   "https://docs.google.com/spreadsheets/d/1YC4vzjepcRs5wcna0ZZFEPCcWJHKru-iZzKY3uWwuE4/pub?output=csv";
 
 var psgsettings =
   "https://docs.google.com/spreadsheets/d/1i2lAHd1gzd3G1-UGbj-MxwRmNSVcbSCF0DvjAD5Um50/pub?output=csv";
 
+//Import Settings from Details Sheet
 function init() {
   Papa.parse(psgsettings, {
     download: true,
@@ -11,22 +14,27 @@ function init() {
     complete: getsettings,
   });
 }
+//Begin Building settings as global variable
 currentsettings = [];
 function getsettings(results) {
   var settings = results.data;
   currentsettings = settings;
   sortlogic();
 }
-
+//Wait for DOM load
 window.addEventListener("DOMContentLoaded", init);
 
+//Begin Sort Logic upon complete import of settings then parse End-User Input
 async function sortlogic(results) {
   Papa.parse(responses, {
     download: true,
     header: true,
     complete: newsort,
   });
+
+//Begin Sorting End-User Input
   async function newsort(results) {
+    console.log(currentsettings);
     var settings = currentsettings;
     var data = results.data;
     var mtgfirstbox = "";
@@ -52,15 +60,20 @@ async function sortlogic(results) {
     let ygohthirdresults = false;
     let ygohfourthresults = false;
     var activeraces = "";
+    var numberofraces = 0;
+    //Check information from Global Settings variable to filter by active racecodes
     const settingsbuilder = settings.filter((newsettings) => {
       let i = 0;
       do {
         if (newsettings.active === "Y") {
+          numberofraces = numberofraces + 1;
           activeraces += newsettings.race_code + " ";
         }
       } while (i < newsettings.length);
     });
     console.log(activeraces);
+    console.log(numberofraces);
+    //Logic for Filtering Position in race
     const mtgsystemfilter = data.filter((system) => {
       let i = 0;
       do {
