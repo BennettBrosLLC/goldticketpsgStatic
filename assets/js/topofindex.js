@@ -18,6 +18,6 @@ $(function () {
         return this.id.match("div" + counter);
       })
       .show(900);
-    counter == 2 ? (counter = 0) : counter++;
+    counter == 3 ? (counter = 0) : counter++;
   }
 });

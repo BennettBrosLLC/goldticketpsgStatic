@@ -1,4 +1,3 @@
-
 //Define URLs for Data Import
 var responses =
   "https://docs.google.com/spreadsheets/d/1YC4vzjepcRs5wcna0ZZFEPCcWJHKru-iZzKY3uWwuE4/pub?output=csv";
@@ -32,181 +31,142 @@ async function sortlogic(results) {
     complete: newsort,
   });
 
-//Begin Sorting End-User Input
+  //Begin Sorting End-User Input
   async function newsort(results) {
-    console.log(currentsettings);
     var settings = currentsettings;
     var data = results.data;
-    var mtgfirstbox = "";
-    var mtgsecondbox = "";
-    var mtgthirdbox = "";
-    var mtgfourthbox = "";
-    let mtgvaluesAlreadySeenOnce = "";
-    let mtgvaluesAlreadySeenTwice = "";
-    let mtgvaluesAlreadySeenThrice = "";
-    let mtgvaluesAlreadySeenQuad = "";
-    let mtgsecondresults = false;
-    let mtgthirdresults = false;
-    let mtgfourthresults = false;
-    var ygohfirstbox = "";
-    var ygohsecondbox = "";
-    var ygohthirdbox = "";
-    var ygohfourthbox = "";
-    let ygohvaluesAlreadySeenOnce = "";
-    let ygohvaluesAlreadySeenTwice = "";
-    let ygohvaluesAlreadySeenThrice = "";
-    let ygohvaluesAlreadySeenQuad = "";
-    let ygohsecondresults = false;
-    let ygohthirdresults = false;
-    let ygohfourthresults = false;
-    var activeraces = "";
-    var numberofraces = 0;
+    var firstbox = "";
+    var secondbox = "";
+    var thirdbox = "";
+    var fourthbox = "";
+    let valuesAlreadySeenOnce = "";
+    let valuesAlreadySeenTwice = "";
+    let valuesAlreadySeenThrice = "";
+    let valuesAlreadySeenQuad = "";
+    let secondresults = false;
+    let thirdresults = false;
+    let fourthresults = false;
+    var activeraces = [];
+    var divids = [];
     //Check information from Global Settings variable to filter by active racecodes
     const settingsbuilder = settings.filter((newsettings) => {
       let i = 0;
       do {
         if (newsettings.active === "Y") {
-          numberofraces = numberofraces + 1;
-          activeraces += newsettings.race_code + " ";
+          activeraces.push(newsettings.race_code);
         }
       } while (i < newsettings.length);
     });
-    console.log(activeraces);
-    console.log(numberofraces);
     //Logic for Filtering Position in race
-    const mtgsystemfilter = data.filter((system) => {
-      let i = 0;
+    const systemfilter = data.filter((system) => {
+      let z = 0;
       do {
-        if (
-          system.system === "mtg" &&
-          system.Approved === "Y" &&
-          activeraces.includes(system.racecode)
-        ) {
-          //if value has been seen once set results to true
-          firstresults = mtgvaluesAlreadySeenOnce.includes(
-            JSON.stringify(system.name)
-          );
-          mtgvaluesAlreadySeenOnce += JSON.stringify(system.name);
-          if (
-            (firstresults = mtgvaluesAlreadySeenOnce.includes(
-              JSON.stringify(system.name)
-            ))
-          ) {
-            mtgsecondresults = mtgvaluesAlreadySeenTwice.includes(
-              JSON.stringify(system.name)
-            );
-            mtgvaluesAlreadySeenTwice += JSON.stringify(system.name);
-            if (mtgsecondresults) {
-              mtgthirdresults = mtgvaluesAlreadySeenThrice.includes(
-                JSON.stringify(system.name)
-              );
-              mtgvaluesAlreadySeenThrice += JSON.stringify(system.name);
-              mtgsecondbox += system.name + "<br>";
-              mtgfirstbox = mtgfirstbox.replace(system.name + "<br>", "");
+        numbertoloop = 0;
+        ApprovedRacers = [];
+        CurrentRace = [];
+        let target = system.name;
 
-              if (mtgthirdresults) {
-                mtgfourthresults = mtgvaluesAlreadySeenQuad.includes(
-                  JSON.stringify(system.name)
-                );
-                mtgvaluesAlreadySeenQuad += JSON.stringify(system.name);
-                mtgthirdbox += system.name + "<br>";
-                mtgsecondbox = mtgsecondbox.replace(system.name + "<br>", "");
-                mtgsecondbox = mtgsecondbox.replace(system.name + "<br>", "");
-                if (mtgfourthresults) {
-                  mtgfourthbox += system.name + "<br>";
-                  mtgthirdbox = mtgthirdbox.replace(system.name + "<br>", "");
-                  mtgthirdbox = mtgthirdbox.replace(system.name + "<br>", "");
-                  mtgthirdbox = mtgthirdbox.replace(system.name + "<br>", "");
-                }
-              }
-            } else {
-              mtgfirstbox += system.name + "<br>";
-            }
-            i++;
+        data.forEach((system) => {
+          for (let key in system) {
+            // system.keys(name);
+            // console.log(`${key}: ${system[key]}`);
+            cities
+              .filter((city) => city.population < 3000000)
+              .sort((c1, c2) => c1.population - c2.population)
+              .map((city) => console.log(city.name + ":" + city.population));
+            console.log(Object.values(system[3]));
+            // console.log(system[key.name]);
           }
-        }
-      } while (i < system.length);
-    });
-    const ygohsystemfilter = data.filter((system) => {
-      let i = 0;
-      do {
-        if (system.system === "ygoh" && system.Approved === "Y") {
-          //if value has been seen once set results to true
-          firstresults = ygohvaluesAlreadySeenOnce.includes(
-            JSON.stringify(system.name)
-          );
-          ygohvaluesAlreadySeenOnce += JSON.stringify(system.name);
-          if (
-            (firstresults = ygohvaluesAlreadySeenOnce.includes(
-              JSON.stringify(system.name)
-            ))
-          ) {
-            ygohsecondresults = ygohvaluesAlreadySeenTwice.includes(
-              JSON.stringify(system.name)
-            );
-            ygohvaluesAlreadySeenTwice += JSON.stringify(system.name);
-            if (ygohsecondresults) {
-              ygohthirdresults = ygohvaluesAlreadySeenThrice.includes(
-                JSON.stringify(system.name)
-              );
-              ygohvaluesAlreadySeenThrice += JSON.stringify(system.name);
-              ygohsecondbox += system.name + "<br>";
-              ygohfirstbox = ygohfirstbox.replace(system.name + "<br>", "");
+        });
 
-              if (ygohthirdresults) {
-                ygohfourthresults = ygohvaluesAlreadySeenQuad.includes(
-                  JSON.stringify(system.name)
-                );
-                ygohvaluesAlreadySeenQuad += JSON.stringify(system.name);
-                ygohthirdbox += system.name + "<br>";
-                ygohsecondbox = ygohsecondbox.replace(system.name + "<br>", "");
-                ygohsecondbox = ygohsecondbox.replace(system.name + "<br>", "");
-                if (ygohfourthresults) {
-                  ygohfourthbox += system.name + "<br>";
-                  ygohthirdbox = ygohthirdbox.replace(system.name + "<br>", "");
-                  ygohthirdbox = ygohthirdbox.replace(system.name + "<br>", "");
-                  ygohthirdbox = ygohthirdbox.replace(system.name + "<br>", "");
-                }
-              }
-            } else {
-              ygohfirstbox += system.name + "<br>";
-            }
-            i++;
-          }
-        }
-      } while (i < system.length);
+        // let i = 0;
+        // do {
+        //   {
+        //     divids = divids += system.racecode;
+        //     if (system.system === "mtg") {
+        //       headerimage = "assets/images/MTGWhite.webp";
+        //     }
+        //     if (system.system === "ygoh") {
+        //       headerimage = "assets/images/Yugioh_Logo.webp";
+        //     }
+        //     if (system.system === "boardgames") {
+        //       headerimage = "assets/images/Game_Night_Logo_Color.webp";
+        //     }
+        //     if (system.system === "warhammer") {
+        //       headerimage = "assets/images/Warhammer-40K-Logo.webp";
+        //     }
+        //     if (system.system === "dungeonsanddragons") {
+        //       headerimage = "assets/images/dd-logo.webp";
+        //     }
+        //     if (system.system === "vanguard") {
+        //       headerimage = "assets/images/CFVG.webp";
+        //     }
+        //     if (system.system === "pathfinder") {
+        //       headerimage = "assets/images/pathfinder-rpg-logo.webp";
+        //     }
+        //     if (system.Approved === "Y") {
+        //       //if value has been seen once set results to true
+        //       firstresults = valuesAlreadySeenOnce.includes(
+        //         JSON.stringify(system.name)
+        //       );
+        //       valuesAlreadySeenOnce += JSON.stringify(system.name);
+        //       if (
+        //         (firstresults = valuesAlreadySeenOnce.includes(
+        //           JSON.stringify(system.name)
+        //         ))
+        //       ) {
+        //         secondresults = valuesAlreadySeenTwice.includes(
+        //           JSON.stringify(system.name)
+        //         );
+        //         valuesAlreadySeenTwice += JSON.stringify(system.name);
+        //         if (secondresults) {
+        //           thirdresults = valuesAlreadySeenThrice.includes(
+        //             JSON.stringify(system.name)
+        //           );
+        //           valuesAlreadySeenThrice += JSON.stringify(system.name);
+        //           secondbox += system.name + "<br>";
+        //           firstbox = firstbox.replace(system.name + "<br>", "");
+
+        //           if (thirdresults) {
+        //             fourthresults = valuesAlreadySeenQuad.includes(
+        //               JSON.stringify(system.name)
+        //             );
+        //             valuesAlreadySeenQuad += JSON.stringify(system.name);
+        //             thirdbox += system.name + "<br>";
+        //             secondbox = secondbox.replace(system.name + "<br>", "");
+        //             secondbox = secondbox.replace(system.name + "<br>", "");
+        //             if (fourthresults) {
+        //               fourthbox += system.name + "<br>";
+        //               thirdbox = thirdbox.replace(system.name + "<br>", "");
+        //               thirdbox = thirdbox.replace(system.name + "<br>", "");
+        //               thirdbox = thirdbox.replace(system.name + "<br>", "");
+        //             }
+        //           }
+        //         }
+        //       }
+        //     }
+        //   } else {
+        //     firstbox += system.name + "<br>";
+        //   }
+        //   if (firstbox == 0) {
+        //     firstbox += "Maybe You?";
+        //   }
+        //   if (secondbox == 0) {
+        //     secondbox += "Maybe You?";
+        //   }
+        //   if (thirdbox == 0) {
+        //     thirdbox += "Maybe You?";
+        //   }
+        //   if (fourthbox == 0) {
+        //     fourthbox += "Maybe You?";
+        //   }
+        //   console.log("system = " + system.system + " firstbox = ");
+        //   i++;
+        // } while (i < system.length);
+
+        z++;
+      } while (z < activeraces.length);
     });
-    if (ygohfirstbox == 0) {
-      ygohfirstbox += "Maybe You?";
-    }
-    if (ygohsecondbox == 0) {
-      ygohsecondbox += "Maybe You?";
-    }
-    if (ygohthirdbox == 0) {
-      ygohthirdbox += "Maybe You?";
-    }
-    if (ygohfourthbox == 0) {
-      ygohfourthbox += "Maybe You?";
-    }
-    if (mtgfirstbox == 0) {
-      mtgfirstbox += "Maybe You?";
-    }
-    if (mtgsecondbox == 0) {
-      mtgsecondbox += "Maybe You?";
-    }
-    if (mtgthirdbox == 0) {
-      mtgthirdbox += "Maybe You?";
-    }
-    if (mtgfourthbox == 0) {
-      mtgfourthbox += "Maybe You?";
-    }
-    document.getElementById("ygohdemobox1").innerHTML = ygohfirstbox;
-    document.getElementById("ygohdemobox2").innerHTML = ygohsecondbox;
-    document.getElementById("ygohdemobox3").innerHTML = ygohthirdbox;
-    document.getElementById("ygohdemobox4").innerHTML = ygohfourthbox;
-    document.getElementById("mtgdemobox1").innerHTML = mtgfirstbox;
-    document.getElementById("mtgdemobox2").innerHTML = mtgsecondbox;
-    document.getElementById("mtgdemobox3").innerHTML = mtgthirdbox;
-    document.getElementById("mtgdemobox4").innerHTML = mtgfourthbox;
+    document.getElementById("innercontent").innerHTML = fourthbox;
   }
 }
