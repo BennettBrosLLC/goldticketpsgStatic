@@ -55,24 +55,24 @@ const getSettingJSON = async () => {
 Promise.all([getSettingJSON(), getObjJSON()]).then(
   ([raceResults, memberResults]) => {
     /*console.log("Race Results", raceResults.data);*/ // debug point
-    console.log("MemberResults", memberResults.data); // debug point
+    // console.log("MemberResults", memberResults.data); // debug point
+    memberResults.data;
     // add a "total" property to each race in the activeRaces array
     raceResults = raceResults.data.map((race) => ({ ...race, total: 0 }));
     memberResults.data.forEach((member) => {
       const i = raceResults.findIndex(
         (race) => race["race_code"] === member.racecode
       );
-      console.log(i);
+      // console.log(i);
       raceResults[i].total++;
     });
     raceResults = raceResults.sort((a, b) => b.total - a.total);
-    console.log("active races", raceResults); // debug point
+    // console.log("active races", raceResults); // debug point
 
     raceResults.forEach((race) => {
       if (
         race.total > 0 ||
-        race.active === "Y" ||
-        race["name_of_race"] !== ""
+        (race.active === "Y" && race["name_of_race"] !== "")
       ) {
         const div = document.createElement("div");
         const title = document.createElement("h2");
@@ -83,6 +83,8 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         div.appendChild(memberContainer);
         div.dataset.count = "0"; // this could be useful in the future
         //add a solid thin black border to the div
+        div.className =
+          "display position-absolute p-5 top-50 start-50 translate-middle background-controller";
         div.style.border = "1px solid black";
         div.style.margin = "10px 0";
         div.style.padding = "10px";
