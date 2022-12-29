@@ -5,14 +5,7 @@ body {
   overflow: hidden;
 }
 
-.boardtopper {
-  height: 15vh;
-}
-.text-white .bg-dark {
-  opacity: 0.4;
-}
-
-.display {
+/* .display {
   width: 300px;
   height: 200px;
   animation: fadeIn ease 10s;
@@ -22,24 +15,55 @@ body {
   -ms-animation: fadeIn ease 10s;
 }
 
-.js .display {
+.js {
   display: none;
-  animation: fadeOut ease 10s;
+} */
+
+.ourshow {
+  opacity: 1;
+  animation: fadeIn ease 10s;
   -webkit-animation: fadeIn ease 10s;
   -moz-animation: fadeIn ease 10s;
   -o-animation: fadeIn ease 10s;
   -ms-animation: fadeIn ease 10s;
+  /* transition: opacity 250ms ease-in-out, transform 250ms ease-in-out; */
+}
+
+/* do not add a transition here */
+.ourhiding {
+  opacity: 0;
+  transform: translateX(
+    -900px
+  ); /*this will need you to adjust for the TV or view port or it will just need to be way more than you want */
+}
+
+.ourhidden {
+  opacity: 0;
+  transform: translateX(
+    900px
+  ); /*just make sure this is now to the right on the same length as hiding*/
+  transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
+}
+
+.boardtopper {
+  height: 15vh;
+}
+.text-white .bg-dark {
+  opacity: 0.4;
 }
 
 .material-icons.md-18 {
   font-size: 18px;
 }
+
 .material-icons.md-24 {
   font-size: 24px;
 }
+
 .material-icons.md-36 {
   font-size: 36px;
 }
+
 .material-icons.md-48 {
   font-size: 48px;
 }
@@ -47,9 +71,11 @@ body {
 .material-icons.md-120 {
   font-size: 120px;
 }
+
 .material-icons.md-25 {
   font-size: 25px;
 }
+
 .background-controller {
   height: 90%;
   width: 90%;

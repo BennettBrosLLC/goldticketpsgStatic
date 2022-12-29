@@ -1,3 +1,36 @@
+const raceIntervalCallback = () => {
+  const currentDivIndex = raceCollection.findIndex((div) =>
+    div.classList.contains("ourshow")
+  );
+  const nextDivIndex =
+    currentDivIndex === raceCollection.length - 1 ? 0 : currentDivIndex + 1;
+  const currentDiv = raceCollection[currentDivIndex];
+  const nextDiv = raceCollection[nextDivIndex];
+  currentDiv.classList.remove("ourshow");
+  currentDiv.classList.add("ourhiding");
+  nextDiv.classList.remove("ourhidden");
+  nextDiv.classList.add("ourshow");
+  setTimeout(() => {
+    currentDiv.classList.remove("ourhiding");
+    currentDiv.classList.add("ourhidden");
+  }, 250);
+};
+
+let raceInterval = false;
+
+const startRaceInterval = () => {
+  if (!raceInterval) {
+    raceInterval = setInterval(raceIntervalCallback, 30000);
+  }
+};
+
+const stopRaceInterval = () => {
+  if (raceInterval) {
+    clearInterval(raceInterval);
+    raceInterval = false;
+  }
+};
+
 const getObjData = async () => {
   const response = await fetch(
     "https://docs.google.com/spreadsheets/d/1YC4vzjepcRs5wcna0ZZFEPCcWJHKru-iZzKY3uWwuE4/pub?output=csv"
@@ -51,12 +84,13 @@ const getSettingJSON = async () => {
     });
   return returnableResults;
 };
-
+let raceCollection = [];
 Promise.all([getSettingJSON(), getObjJSON()]).then(
   ([raceResults, memberResults]) => {
     /*console.log("Race Results", raceResults.data);*/ // debug point
     // console.log("MemberResults", memberResults.data); // debug point
     memberResults.data;
+
     // add a "total" property to each race in the activeRaces array
     raceResults = raceResults.data.map((race) => ({ ...race, total: 0 }));
     memberResults.data.forEach((member) => {
@@ -66,28 +100,29 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
       // console.log(i);
       raceResults[i].total++;
     });
-    raceResults = raceResults.sort((a, b) => b.total - a.total);
-    // console.log("active races", raceResults); // debug point
+    // outside of any other structures you need to define this so that its available in your script
 
-    raceResults.forEach((race) => {
+    raceResults = raceResults.sort((a, b) => b.total - a.total);
+    raceResults.forEach((race, index) => {
       if (
-        race.total > 0 ||
-        (race.active === "Y" && race["name_of_race"] !== "")
+        race.total > 0 &&
+        race.active === "Y" &&
+        race["name_of_race"] !== ""
       ) {
         const div = document.createElement("div");
+        div.className =
+          "position-absolute p-5 top-50 start-50 translate-middle background-controller";
+        div.classList.add(index === 0 ? "ourshow" : "ourhidden");
         const title = document.createElement("h2");
         const memberContainer = document.createElement("div");
         title.textContent = race["name_of_race"];
         div.id = race["race_code"];
         div.appendChild(title);
         div.appendChild(memberContainer);
-        div.dataset.count = "0"; // this could be useful in the future
+        div.dataset.count = race.total; // this could be useful in the future
         //add a solid thin black border to the div
-        div.className =
-          "display position-absolute p-5 top-50 start-50 translate-middle background-controller";
-        div.style.border = "1px solid black";
-        div.style.margin = "10px 0";
-        div.style.padding = "10px";
+        div.classList.add("race-container");
+        raceCollection.push(div); // this is where it gets added
         document.getElementById("raceContainer").appendChild(div);
       }
     });
@@ -101,7 +136,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
     });
   }
 );
-
+startRaceInterval();
 /**
  * Array Key value compare and count.
  *
