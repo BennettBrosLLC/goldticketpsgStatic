@@ -128,12 +128,38 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
     });
 
     memberResults.data.forEach((member) => {
-      const div = document.createElement("div");
-      const name = document.createElement("p");
-      name.textContent = member["name"];
-      div.appendChild(name);
-      document.getElementById(member.racecode).appendChild(div);
+      if (member.Approved === "Y") {
+        const div = document.createElement("div");
+        const name = document.createElement("p");
+        name.textContent = member["name"];
+        div.appendChild(name);
+        document.getElementById(member.racecode).appendChild(div);
+      }
     });
+
+    // raceResults.forEach((race, index) => {
+    //   if (
+    //     race.total > 0 &&
+    //     race.active === "Y" &&
+    //     race["name_of_race"] !== ""
+    //   ) {
+    //     const div = document.createElement("div");
+    //     div.className =
+    //       "position-absolute p-5 top-50 start-50 translate-middle background-controller";
+    //     div.classList.add(index === 0 ? "ourshow" : "ourhidden");
+    //     const title = document.createElement("h2");
+    //     const memberContainer = document.createElement("div");
+    //     title.textContent = race["name_of_race"];
+    //     div.id = race["race_code"];
+    //     div.appendChild(title);
+    //     div.appendChild(memberContainer);
+    //     div.dataset.count = race.total; // this could be useful in the future
+    //     //add a solid thin black border to the div
+    //     div.classList.add("race-container");
+    //     raceCollection.push(div); // this is where it gets added
+    //     document.getElementById("raceContainer").appendChild(div);
+    //   }
+    // });
   }
 );
 startRaceInterval();
