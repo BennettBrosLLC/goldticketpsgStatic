@@ -84,7 +84,11 @@ const getSettingJSON = async () => {
     });
   return returnableResults;
 };
+
+// outside of any other structures you need to define this so that its available in your script
 let raceCollection = [];
+let arr2 = [];
+
 Promise.all([getSettingJSON(), getObjJSON()]).then(
   ([raceResults, memberResults]) => {
     /*console.log("Race Results", raceResults.data);*/ // debug point
@@ -100,7 +104,6 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
       // console.log(i);
       raceResults[i].total++;
     });
-    // outside of any other structures you need to define this so that its available in your script
 
     raceResults = raceResults.sort((a, b) => b.total - a.total);
     raceResults.forEach((race, index) => {
@@ -114,10 +117,35 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
           "position-absolute p-5 top-50 start-50 translate-middle background-controller";
         div.classList.add(index === 0 ? "ourshow" : "ourhidden");
         const title = document.createElement("h2");
+        const acheivement1 = document.createElement("h3");
         const memberContainer = document.createElement("div");
+        if (race["type_of_race"] === "mtg") {
+          div.appendChild(document.createElement("img")).src =
+            "/assets/images/mtg.webp";
+        } else if (race["type_of_race"] === "ygoh") {
+          div.appendChild(document.createElement("img")).src =
+            "/assets/images/ygoh.webp";
+        } else if (race["type_of_race"] === "boardgames") {
+          div.appendChild(document.createElement("img")).src =
+            "/assets/images/boardgames.webp";
+        } else if (race["type_of_race"] === "warhammer") {
+          div.appendChild(document.createElement("img")).src =
+            "/assets/images/warhammer.webp";
+        } else if (race["type_of_race"] === "dungeonsanddragons") {
+          div.appendChild(document.createElement("img")).src =
+            "/assets/images/dungeonsanddragons.webp";
+        } else if (race["type_of_race"] === "vanguard") {
+          div.appendChild(document.createElement("img")).src =
+            "/assets/images/vanguard.webp";
+        } else if (race["type_of_race"] === "pathfinder") {
+          div.appendChild(document.createElement("img")).src =
+            "/assets/images/pathfinder.webp";
+        }
         title.textContent = race["name_of_race"];
         div.id = race["race_code"];
+        acheivement1.textContent = race["acheivement1"];
         div.appendChild(title);
+        div.appendChild(acheivement1);
         div.appendChild(memberContainer);
         div.dataset.count = race.total; // this could be useful in the future
         //add a solid thin black border to the div
@@ -127,16 +155,83 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
       }
     });
 
+    function findOcc(arr, key) {
+      // let arr2 = [];
+      arr.forEach((x) => {
+        // Checking if there is any object in arr2
+        // which contains the key value
+        if (
+          arr2.some((val) => {
+            return val[key] == x[key];
+          })
+        ) {
+          // If yes! then increase the occurrence by 1
+          arr2.forEach((k) => {
+            if (k[key] === x[key] && x["Approved"] === "Y") {
+              k["occurrence"]++;
+            }
+          });
+        } else {
+          // If not! Then create a new object initialize
+          // it with the present iteration key's value and
+          // set the occurrence to 1
+          if (x["Approved"] === "Y") {
+            let a = {};
+            a[key] = x[key];
+            a["occurrence"] = 1;
+            arr2.push(a);
+          }
+        }
+      });
+      return arr2;
+    }
+
+    let arr = memberResults.data;
+    // console.log(arr);
+    let key = "name";
+    findOcc(arr, key);
+
+    //check if name already added to a div
+    let namealreadyadded = [];
+
     memberResults.data.forEach((member) => {
-      if (member.Approved === "Y") {
-        const div = document.createElement("div");
-        const name = document.createElement("p");
-        name.textContent = member["name"];
-        div.appendChild(name);
-        document.getElementById(member.racecode).appendChild(div);
+      for (let i = 0; i < arr2.length; i++) {
+        if (
+          member.name === arr2[i].name &&
+          !namealreadyadded.includes(member.name)
+        ) {
+          if (arr2[i].occurrence === 1) {
+            const div = document.createElement("div");
+            const name = document.createElement("p");
+            namealreadyadded.push(member.name);
+            name.textContent = member["name"];
+            div.appendChild(name);
+            document.getElementById(member.racecode).appendChild(div);
+          } else if (arr2[i].occurrence === 2) {
+            const div = document.createElement("div");
+            const name = document.createElement("p");
+            namealreadyadded.push(member.name);
+            name.textContent = member["name"];
+            div.appendChild(name);
+            document.getElementById(member.racecode).appendChild(div);
+          } else if (arr2[i].occurrence === 3) {
+            const div = document.createElement("div");
+            const name = document.createElement("p");
+            namealreadyadded.push(member.name);
+            name.textContent = member["name"];
+            div.appendChild(name);
+            document.getElementById(member.racecode).appendChild(div);
+          } else if (arr2[i].occurrence === 4) {
+            const div = document.createElement("div");
+            const name = document.createElement("p");
+            namealreadyadded.push(member.name);
+            name.textContent = member["name"];
+            div.appendChild(name);
+            document.getElementById(member.racecode).appendChild(div);
+          }
+        }
       }
     });
-
     // raceResults.forEach((race, index) => {
     //   if (
     //     race.total > 0 &&
