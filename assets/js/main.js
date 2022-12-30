@@ -222,10 +222,6 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
 
     //check if name already added to a div
     let namealreadyadded = [];
-    let maybeyoualreadyadded1 = [];
-    let maybeyoualreadyadded2 = [];
-    let maybeyoualreadyadded3 = [];
-    let maybeyoualreadyadded4 = [];
 
     memberResults.data.forEach((member) => {
       //add rows and column here to force the names to go into lines respectively
@@ -249,7 +245,6 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
           innerdiv2.className = "col";
           innerdiv3.className = "col";
           innerdiv4.className = "col";
-
           if (arr2[i].occurrence === 1) {
             namealreadyadded.push(member.name);
             div1.textContent += member["name"];
@@ -263,7 +258,6 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
             namealreadyadded.push(member.name);
             div4.textContent += member["name"];
           }
-
           innerdiv1.appendChild(div1);
           outterdiv.appendChild(innerdiv1);
           innerdiv2.appendChild(div2);
