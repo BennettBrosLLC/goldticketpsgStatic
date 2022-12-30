@@ -110,36 +110,61 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         race["name_of_race"] !== ""
       ) {
         const div = document.createElement("div");
+        const topofracediv = document.createElement("div");
+        const topofraceimgdiv = document.createElement("div");
+        const topofracetitlediv = document.createElement("div");
         div.className =
           "position-absolute p-5 top-50 start-50 translate-middle background-controller";
         div.classList.add(index === 0 ? "ourshow" : "ourhidden");
-        const title = document.createElement("h2");
+        const outtertitle = document.createElement("h1");
+        const descriptor = document.createElement("h3");
+        const innertitle = document.createElement("strong");
         const acheivement1 = document.createElement("h3");
         const memberContainer = document.createElement("div");
         const topper = document.createElement("img");
+        topofracediv.className = "row border-bottom border-5 border-dark p-3";
+        topofraceimgdiv.className = "col justify-content-start";
+        topofracetitlediv.className = "col p-3 justify-content-end text-center";
         //need to put topper in a div with classes "row border-bottom border-5 border-dark p-3" that contains another div with classes div class="col justify-content-start"
         //accompany the topper in the first inner div with the title and the following text: Earn a Golden Ticket by winning one of these races.
         topper.className = "boardtopper";
+        let descriptorgametype = "";
         if (race["type_of_race"] === "mtg") {
           topper.src = "assets/images/mtg.webp";
+          descriptorgametype = "Magic";
         } else if (race["type_of_race"] === "ygoh") {
           topper.src = "assets/images/ygoh.webp";
+          descriptorgametype = "Yu-Gi-OH!";
         } else if (race["type_of_race"] === "boardgames") {
           topper.src = "assets/images/boardgames.webp";
+          descriptorgametype = "BoardGames";
         } else if (race["type_of_race"] === "warhammer") {
           topper.src = "assets/images/warhammer.webp";
+          descriptorgametype = "WarHammer";
         } else if (race["type_of_race"] === "dungeonsanddragons") {
           topper.src = "assets/images/dungeonsanddragons.webp";
+          descriptorgametype = "D&D";
         } else if (race["type_of_race"] === "vanguard") {
           topper.src = "assets/images/vanguard.webp";
+          descriptorgametype = "Cardfight! Vanguard";
         } else if (race["type_of_race"] === "pathfinder") {
           topper.src = "assets/images/pathfinder.webp";
+          descriptorgametype = "Pathfinder";
         }
-        div.appendChild(topper);
-        title.textContent = race["name_of_race"];
+        topofracediv.appendChild(topofraceimgdiv);
+        topofracediv.appendChild(topofracetitlediv);
+        topofraceimgdiv.appendChild(topper);
+        innertitle.textContent = race["name_of_race"];
+        descriptor.textContent =
+          "Earn a " +
+          descriptorgametype +
+          " Golden Ticket by winning one of these races.";
         div.id = race["race_code"];
         acheivement1.textContent = race["acheivement1"];
-        div.appendChild(title);
+        outtertitle.appendChild(innertitle);
+        topofracetitlediv.appendChild(outtertitle);
+        topofracetitlediv.appendChild(descriptor);
+        div.appendChild(topofracediv);
         div.appendChild(acheivement1);
         div.appendChild(memberContainer);
         div.dataset.count = race.total; // this could be useful in the future
@@ -163,7 +188,16 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
           // If yes! then increase the occurrence by 1
           arr2.forEach((k) => {
             if (k[key] === x[key] && x["Approved"] === "Y") {
-              k["occurrence"]++;
+              if (k["racecode"] != x["racecode"]) {
+                let a = {};
+                a[key] = x[key];
+                a["racecode"] = x["racecode"];
+                a["occurrence"] = 1;
+                arr2.push(a);
+              } else {
+                k["occurrence"]++;
+                k["racecode"] = x["racecode"];
+              }
             }
           });
         } else {
@@ -173,6 +207,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
           if (x["Approved"] === "Y") {
             let a = {};
             a[key] = x[key];
+            a["racecode"] = x["racecode"];
             a["occurrence"] = 1;
             arr2.push(a);
           }
@@ -183,10 +218,14 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
 
     let arr = memberResults.data;
     let key = "name";
-    findOcc(arr, key);
+    console.log(findOcc(arr, key));
 
     //check if name already added to a div
     let namealreadyadded = [];
+    let maybeyoualreadyadded1 = [];
+    let maybeyoualreadyadded2 = [];
+    let maybeyoualreadyadded3 = [];
+    let maybeyoualreadyadded4 = [];
 
     memberResults.data.forEach((member) => {
       //add rows and column here to force the names to go into lines respectively
@@ -195,35 +234,43 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
           member.name === arr2[i].name &&
           !namealreadyadded.includes(member.name)
         ) {
+          const outterdiv = document.createElement("div");
+          const innerdiv1 = document.createElement("div");
+          const innerdiv2 = document.createElement("div");
+          const innerdiv3 = document.createElement("div");
+          const innerdiv4 = document.createElement("div");
+          const div1 = document.createElement("div");
+          const div2 = document.createElement("div");
+          const div3 = document.createElement("div");
+          const div4 = document.createElement("div");
+          outterdiv.className =
+            "row text-center row-cols-2 row-cols-lg-5 g-2 g-lg-3";
+          innerdiv1.className = "col";
+          innerdiv2.className = "col";
+          innerdiv3.className = "col";
+          innerdiv4.className = "col";
+
           if (arr2[i].occurrence === 1) {
-            const div = document.createElement("div");
-            const name = document.createElement("p");
             namealreadyadded.push(member.name);
-            name.textContent = member["name"];
-            div.appendChild(name);
-            document.getElementById(member.racecode).appendChild(div);
+            div1.textContent += member["name"];
           } else if (arr2[i].occurrence === 2) {
-            const div = document.createElement("div");
-            const name = document.createElement("p");
             namealreadyadded.push(member.name);
-            name.textContent = member["name"];
-            div.appendChild(name);
-            document.getElementById(member.racecode).appendChild(div);
+            div2.textContent += member["name"];
           } else if (arr2[i].occurrence === 3) {
-            const div = document.createElement("div");
-            const name = document.createElement("p");
             namealreadyadded.push(member.name);
-            name.textContent = member["name"];
-            div.appendChild(name);
-            document.getElementById(member.racecode).appendChild(div);
+            div3.textContent += member["name"];
           } else if (arr2[i].occurrence === 4) {
-            const div = document.createElement("div");
-            const name = document.createElement("p");
             namealreadyadded.push(member.name);
-            name.textContent = member["name"];
-            div.appendChild(name);
-            document.getElementById(member.racecode).appendChild(div);
+            div4.textContent += member["name"];
           }
+
+          innerdiv1.appendChild(div1);
+          outterdiv.appendChild(innerdiv1);
+          innerdiv2.appendChild(div2);
+          outterdiv.appendChild(innerdiv2);
+          innerdiv4.appendChild(div4);
+          outterdiv.appendChild(innerdiv4);
+          document.getElementById(member.racecode).appendChild(outterdiv);
         }
       }
       //add data to specified columns here

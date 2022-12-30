@@ -80,8 +80,8 @@ body {
   height: 90%;
   width: 90%;
   background-image: linear-gradient(
-      rgba(139, 83, 255, 0.5),
-      rgba(139, 83, 255, 0.5)
+      rgba(140, 83, 255, 0.9),
+      rgba(140, 83, 255, 0.9)
     ),
     url(../images/prosoul-games_large.jpg);
   background-size: cover;
