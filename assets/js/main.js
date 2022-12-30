@@ -119,28 +119,24 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         const title = document.createElement("h2");
         const acheivement1 = document.createElement("h3");
         const memberContainer = document.createElement("div");
+        const topper = document.createElement("img");
+        topper.className = "boardtopper";
         if (race["type_of_race"] === "mtg") {
-          div.appendChild(document.createElement("img")).src =
-            "/assets/images/mtg.webp";
+          topper.src = "assets/images/mtg.webp";
         } else if (race["type_of_race"] === "ygoh") {
-          div.appendChild(document.createElement("img")).src =
-            "/assets/images/ygoh.webp";
+          topper.src = "assets/images/ygoh.webp";
         } else if (race["type_of_race"] === "boardgames") {
-          div.appendChild(document.createElement("img")).src =
-            "/assets/images/boardgames.webp";
+          topper.src = "assets/images/boardgames.webp";
         } else if (race["type_of_race"] === "warhammer") {
-          div.appendChild(document.createElement("img")).src =
-            "/assets/images/warhammer.webp";
+          topper.src = "assets/images/warhammer.webp";
         } else if (race["type_of_race"] === "dungeonsanddragons") {
-          div.appendChild(document.createElement("img")).src =
-            "/assets/images/dungeonsanddragons.webp";
+          topper.src = "assets/images/dungeonsanddragons.webp";
         } else if (race["type_of_race"] === "vanguard") {
-          div.appendChild(document.createElement("img")).src =
-            "/assets/images/vanguard.webp";
+          topper.src = "assets/images/vanguard.webp";
         } else if (race["type_of_race"] === "pathfinder") {
-          div.appendChild(document.createElement("img")).src =
-            "/assets/images/pathfinder.webp";
+          topper.src = "assets/images/pathfinder.webp";
         }
+        div.appendChild(topper);
         title.textContent = race["name_of_race"];
         div.id = race["race_code"];
         acheivement1.textContent = race["acheivement1"];
