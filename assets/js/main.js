@@ -91,8 +91,6 @@ let arr2 = [];
 
 Promise.all([getSettingJSON(), getObjJSON()]).then(
   ([raceResults, memberResults]) => {
-    /*console.log("Race Results", raceResults.data);*/ // debug point
-    // console.log("MemberResults", memberResults.data); // debug point
     memberResults.data;
 
     // add a "total" property to each race in the activeRaces array
@@ -101,7 +99,6 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
       const i = raceResults.findIndex(
         (race) => race["race_code"] === member.racecode
       );
-      // console.log(i);
       raceResults[i].total++;
     });
 
@@ -120,6 +117,8 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         const acheivement1 = document.createElement("h3");
         const memberContainer = document.createElement("div");
         const topper = document.createElement("img");
+        //need to put topper in a div with classes "row border-bottom border-5 border-dark p-3" that contains another div with classes div class="col justify-content-start"
+        //accompany the topper in the first inner div with the title and the following text: Earn a Golden Ticket by winning one of these races.
         topper.className = "boardtopper";
         if (race["type_of_race"] === "mtg") {
           topper.src = "assets/images/mtg.webp";
@@ -183,7 +182,6 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
     }
 
     let arr = memberResults.data;
-    // console.log(arr);
     let key = "name";
     findOcc(arr, key);
 
@@ -191,6 +189,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
     let namealreadyadded = [];
 
     memberResults.data.forEach((member) => {
+      //add rows and column here to force the names to go into lines respectively
       for (let i = 0; i < arr2.length; i++) {
         if (
           member.name === arr2[i].name &&
@@ -227,6 +226,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
           }
         }
       }
+      //add data to specified columns here
     });
     // raceResults.forEach((race, index) => {
     //   if (
