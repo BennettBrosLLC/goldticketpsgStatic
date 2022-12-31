@@ -45,6 +45,10 @@ body {
   transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
 }
 
+.centralboxes {
+  height: 60vh;
+}
+
 .boardtopper {
   height: 15vh;
 }
@@ -70,6 +74,7 @@ body {
 
 .material-icons.md-120 {
   font-size: 120px;
+  z-index: 49;
 }
 
 .material-icons.md-25 {
@@ -77,6 +82,15 @@ body {
 }
 ul {
   line-height: 20%;
+}
+.fs-7 {
+  font-size: 0.6em;
+  text-align-last: center;
+  z-index: 50;
+}
+
+.border-purple {
+  border-color: #4c12a4;
 }
 .background-controller {
   height: 90%;

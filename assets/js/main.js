@@ -131,7 +131,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         //top divs--------------------------------------------------------------------------------------------------|
 
         topdiv.className =
-          "position-absolute p-5 top-50 start-50 translate-middle background-controller";
+          "position-absolute p-5 top-50 start-50 translate-middle border-5 background-controller rounded border border-warning";
         topdiv.classList.add(
           FirstIndex.name_of_race === race["name_of_race"]
             ? "ourshow"
@@ -208,19 +208,28 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         achievementbox2col.className = "col";
         achievementbox3col.className = "col";
         achievementbox4col.className = "col";
-        achievementbox1.className = "p-3 bg-dark text-white";
-        achievementbox2.className = "p-3 bg-dark text-white";
-        achievementbox3.className = "p-3 bg-dark text-white";
-        achievementbox4.className = "p-3 bg-dark text-white";
+        achievementbox1.className = "p-3 bg-dark text-white rounded";
+        achievementbox2.className = "p-3 bg-dark text-white rounded";
+        achievementbox3.className = "p-3 bg-dark text-white rounded";
+        achievementbox4.className = "p-3 bg-dark text-white rounded";
         //racerboxes-----------------------------------------------------------------------------------|
-        box1col.className = "col";
-        box2col.className = "col";
-        box3col.className = "col";
-        box4col.className = "col";
-        box1.className = "p-3 centralbox bg-secondary";
-        box2.className = "p-3 centralbox bg-secondary";
-        box3.className = "p-3 centralbox bg-secondary";
-        box4.className = "p-3 centralbox bg-secondary";
+        box1col.className = "col centralboxes text-white";
+        box2col.className = "col centralboxes text-white";
+        box3col.className = "col centralboxes text-white";
+        box4col.className = "col centralboxes text-white";
+        box1.className =
+          "p-3 centralbox bg-secondary rounded border border-dark border-1";
+        box2.className =
+          "p-3 centralbox bg-secondary rounded border border-dark border-1";
+        box3.className =
+          "p-3 centralbox bg-secondary rounded border border-dark border-1";
+        box4.className =
+          "p-3 centralbox bg-secondary rounded border border-dark border-1";
+
+        box1.style = "height: 25vh";
+        box2.style = "height: 25vh";
+        box3.style = "height: 25vh";
+        box4.style = "height: 25vh";
         //set ids for racerboxes
         box1.id = race["race_code"] + race["type_of_race"] + "box1";
         box2.id = race["race_code"] + race["type_of_race"] + "box2";
@@ -258,56 +267,131 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         const prizebox2col = document.createElement("div");
         const prizebox3col = document.createElement("div");
         const prizebox4col = document.createElement("div");
+        const prizebox5col = document.createElement("div");
+        const prizebox6col = document.createElement("div");
         const prizebox1 = document.createElement("div");
         const prizebox2 = document.createElement("div");
         const prizebox3 = document.createElement("div");
         const prizebox4 = document.createElement("div");
+        const prizebox5 = document.createElement("div");
+        const prizebox6 = document.createElement("div");
         const prizeboxspan1 = document.createElement("span");
         const prizeboxspan2 = document.createElement("span");
         const prizeboxspan3 = document.createElement("span");
         const prizeboxspan4 = document.createElement("span");
+        const prizeboxspan5 = document.createElement("span");
+        const prizeboxspan6 = document.createElement("span");
+        const prizeboxtextspan1 = document.createElement("span");
+        const prizeboxtextspan2 = document.createElement("span");
+        const prizeboxtextspan3 = document.createElement("span");
+        const prizeboxtextspan4 = document.createElement("span");
+        const prizeboxtextspan5 = document.createElement("span");
+        const prizeboxtextspan6 = document.createElement("span");
         bottomdiv.className =
-          "fixed-bottom justify-content-end p-3 row row-cols-2 pt-xl-5 row-cols-lg-4 g-2 g-lg-3";
+          "fixed-bottom justify-content-end p-3 row row-cols-2 pt-xl-5 row-cols-lg-6 g-2 g-lg-3 text-center";
         prizebox1col.className = "col";
         prizebox2col.className = "col";
         prizebox3col.className = "col";
         prizebox4col.className = "col";
+        prizebox5col.className = "col";
+        prizebox6col.className = "col";
         prizebox1col.style = "width: 180px;";
         prizebox2col.style = "width: 180px;";
         prizebox3col.style = "width: 180px;";
         prizebox4col.style = "width: 180px;";
+        prizebox5col.style = "width: 180px;";
+        prizebox6col.style = "width: 180px;";
+        prizeboxtextspan1.style = "display: block";
+        prizeboxtextspan2.style = "display: block";
+        prizeboxtextspan3.style = "display: block";
+        prizeboxtextspan4.style = "display: block";
+        prizeboxtextspan5.style = "display: block";
+        prizeboxtextspan6.style = "display: block";
         prizebox1.className =
-          race["Prize1"] === "Y" ? "p-3  bg-warning" : "p-3  bg-secondary";
+          race["prize_level_unlock"] >= 1
+            ? "p-3  bg-warning text-center rounded border-bottom border-end border-3 border-dark"
+            : "p-3  bg-secondary text-center rounded border-bottom border-end border-3 border-dark";
         prizebox2.className =
-          race["Prize2"] === "Y" ? "p-3  bg-warning" : "p-3  bg-secondary";
+          race["prize_level_unlock"] >= 2
+            ? "p-3  bg-warning text-center rounded border-bottom border-end border-3 border-dark"
+            : "p-3  bg-secondary text-center rounded border-bottom border-end border-3 border-dark";
         prizebox3.className =
-          race["Prize3"] === "Y" ? "p-3  bg-warning" : "p-3  bg-secondary";
+          race["prize_level_unlock"] >= 3
+            ? "p-3  bg-warning text-center rounded border-bottom border-end border-3 border-dark"
+            : "p-3  bg-secondary text-center rounded border-bottom border-end border-3 border-dark";
         prizebox4.className =
-          race["Prize4"] === "Y" ? "p-3  bg-warning" : "p-3  bg-secondary";
+          race["prize_level_unlock"] >= 4
+            ? "p-3  bg-warning text-center rounded border-bottom border-end border-3 border-dark"
+            : "p-3  bg-secondary text-center rounded border-bottom border-end border-3 border-dark";
+        prizebox5.className =
+          race["prize_level_unlock"] >= 5
+            ? "p-3  bg-warning text-center rounded border-bottom border-end border-3 border-dark"
+            : "p-3  bg-secondary text-center rounded border-bottom border-end border-3 border-dark";
+        prizebox6.className =
+          race["prize_level_unlock"] >= 6
+            ? "p-3  bg-warning text-center rounded border-bottom border-end border-3 border-dark"
+            : "p-3  bg-secondary text-center rounded border-bottom border-end border-3 border-dark";
         prizeboxspan1.className = "material-icons md-120";
         prizeboxspan2.className = "material-icons md-120";
         prizeboxspan3.className = "material-icons md-120";
         prizeboxspan4.className = "material-icons md-120";
+        prizeboxspan5.className = "material-icons md-120";
+        prizeboxspan6.className = "material-icons md-120";
+        prizeboxtextspan1.className =
+          "fs-7 bg-transparent text-black text-center";
+        prizeboxtextspan2.className =
+          "fs-7 bg-transparent text-black text-center";
+        prizeboxtextspan3.className =
+          "fs-7 bg-transparent text-black text-center";
+        prizeboxtextspan4.className =
+          "fs-7 bg-transparent text-black text-center";
+        prizeboxtextspan5.className =
+          "fs-7 bg-transparent text-black text-center";
+        prizeboxtextspan6.className =
+          "fs-7 bg-transparent text-black text-center";
+
         prizeboxspan1.textContent =
-          race["Prize1"] === "Y" ? "lock_open" : "lock";
+          race["prize_level_unlock"] >= 1 ? "lock_open" : "lock";
         prizeboxspan2.textContent =
-          race["Prize2"] === "Y" ? "lock_open" : "lock";
+          race["prize_level_unlock"] >= 2 ? "lock_open" : "lock";
         prizeboxspan3.textContent =
-          race["Prize3"] === "Y" ? "lock_open" : "lock";
+          race["prize_level_unlock"] >= 3 ? "lock_open" : "lock";
         prizeboxspan4.textContent =
-          race["Prize4"] === "Y" ? "lock_open" : "lock";
+          race["prize_level_unlock"] >= 4 ? "lock_open" : "lock";
+        prizeboxspan5.textContent =
+          race["prize_level_unlock"] >= 5 ? "lock_open" : "lock";
+        prizeboxspan6.textContent =
+          race["prize_level_unlock"] >= 6 ? "lock_open" : "lock";
+        prizeboxtextspan1.textContent = race["Prize1"];
+        prizeboxtextspan2.textContent = race["Prize2"];
+        prizeboxtextspan3.textContent = race["Prize3"];
+        prizeboxtextspan4.textContent = race["Prize4"];
+        prizeboxtextspan5.textContent = race["Prize5"];
+        prizeboxtextspan6.textContent = race["Prize6"];
         prizebox1.appendChild(prizeboxspan1);
         prizebox2.appendChild(prizeboxspan2);
         prizebox3.appendChild(prizeboxspan3);
         prizebox4.appendChild(prizeboxspan4);
+        prizebox5.appendChild(prizeboxspan5);
+        prizebox6.appendChild(prizeboxspan6);
+        prizebox1.appendChild(prizeboxtextspan1);
+        prizebox2.appendChild(prizeboxtextspan2);
+        prizebox3.appendChild(prizeboxtextspan3);
+        prizebox4.appendChild(prizeboxtextspan4);
+        prizebox5.appendChild(prizeboxtextspan5);
+        prizebox6.appendChild(prizeboxtextspan6);
         prizebox1col.appendChild(prizebox1);
         prizebox2col.appendChild(prizebox2);
         prizebox3col.appendChild(prizebox3);
         prizebox4col.appendChild(prizebox4);
+        prizebox5col.appendChild(prizebox5);
+        prizebox6col.appendChild(prizebox6);
         bottomdiv.appendChild(prizebox1col);
         bottomdiv.appendChild(prizebox2col);
         bottomdiv.appendChild(prizebox3col);
         bottomdiv.appendChild(prizebox4col);
+        bottomdiv.appendChild(prizebox5col);
+        bottomdiv.appendChild(prizebox6col);
 
         //final logic--------------------------------------------------------------------------------------------------|
 
@@ -382,21 +466,21 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
       const div4 = document.createElement("div");
       if (arr2[z].occurrence === 1) {
         div1.textContent += arr2[z]["name"];
+        linebreak = document.createElement("br");
+        div1.appendChild(linebreak);
       } else if (arr2[z].occurrence === 2) {
         div2.textContent += arr2[z]["name"];
+        linebreak = document.createElement("br");
+        div2.appendChild(linebreak);
       } else if (arr2[z].occurrence === 3) {
         div3.textContent += arr2[z]["name"];
+        linebreak = document.createElement("br");
+        div3.appendChild(linebreak);
       } else if (arr2[z].occurrence === 4) {
         div4.textContent += arr2[z]["name"];
+        linebreak = document.createElement("br");
+        div4.appendChild(linebreak);
       }
-      linebreak = document.createElement("br");
-      div1.appendChild(linebreak);
-      linebreak = document.createElement("br");
-      div2.appendChild(linebreak);
-      linebreak = document.createElement("br");
-      div3.appendChild(linebreak);
-      linebreak = document.createElement("br");
-      div4.appendChild(linebreak);
       if (document.getElementById(arr2[z].racecode) === null) {
       } else {
         document
