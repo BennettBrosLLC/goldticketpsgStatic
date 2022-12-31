@@ -75,7 +75,9 @@ body {
 .material-icons.md-25 {
   font-size: 25px;
 }
-
+ul {
+  line-height: 20%;
+}
 .background-controller {
   height: 90%;
   width: 90%;

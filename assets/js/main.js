@@ -111,33 +111,40 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
 
     raceResults = raceResults.sort((a, b) => b.total - a.total);
     raceResults.forEach((race, index) => {
+      //race init
       if (
         race.total > 0 &&
         race.active === "Y" &&
         race["name_of_race"] !== ""
       ) {
-        const div = document.createElement("div");
+        //define useable elements for top divs--------------------------------------------------------------------------------------------------|
+
+        const topdiv = document.createElement("div");
+        const centraldiv = document.createElement("div");
         const topofracediv = document.createElement("div");
         const topofraceimgdiv = document.createElement("div");
         const topofracetitlediv = document.createElement("div");
-        div.className =
-          "position-absolute p-5 top-50 start-50 translate-middle background-controller";
-        div.classList.add(
-          FirstIndex.name_of_race === race["name_of_race"]
-            ? "ourshow"
-            : "ourhidden"
-        );
         const outtertitle = document.createElement("h1");
         const descriptor = document.createElement("h3");
         const innertitle = document.createElement("strong");
         const acheivement1 = document.createElement("h3");
-        const memberContainer = document.createElement("div");
+        const acheivement2 = document.createElement("h3");
+        const acheivement3 = document.createElement("h3");
+        const acheivement4 = document.createElement("h3");
         const topper = document.createElement("img");
+
+        //top divs--------------------------------------------------------------------------------------------------|
+
+        topdiv.className =
+          "position-absolute p-5 top-50 start-50 translate-middle background-controller";
+        topdiv.classList.add(
+          FirstIndex.name_of_race === race["name_of_race"]
+            ? "ourshow"
+            : "ourhidden"
+        );
         topofracediv.className = "row border-bottom border-5 border-dark p-3";
         topofraceimgdiv.className = "col justify-content-start";
         topofracetitlediv.className = "col p-3 justify-content-end text-center";
-        //need to put topper in a div with classes "row border-bottom border-5 border-dark p-3" that contains another div with classes div class="col justify-content-start"
-        //accompany the topper in the first inner div with the title and the following text: Earn a Golden Ticket by winning one of these races.
         topper.className = "boardtopper";
         let descriptorgametype = "";
         if (race["type_of_race"] === "mtg") {
@@ -169,20 +176,104 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         descriptor.textContent =
           "Earn a " +
           descriptorgametype +
-          " Golden Ticket by winning one of these races.";
-        div.id = race["race_code"];
-        acheivement1.textContent = race["acheivement1"];
+          " Golden Ticket by winning this race.";
+        topdiv.id = race["race_code"];
         outtertitle.appendChild(innertitle);
         topofracetitlediv.appendChild(outtertitle);
         topofracetitlediv.appendChild(descriptor);
-        div.appendChild(topofracediv);
-        div.appendChild(acheivement1);
-        div.appendChild(memberContainer);
-        div.dataset.count = race.total; // this could be useful in the future
+        topdiv.appendChild(topofracediv);
+
+        //define useable elements for top divs--------------------------------------------------------------------------------------------------|
+
+        const achievementbox1col = document.createElement("div");
+        const achievementbox2col = document.createElement("div");
+        const achievementbox3col = document.createElement("div");
+        const achievementbox4col = document.createElement("div");
+        const achievementbox1 = document.createElement("div");
+        const achievementbox2 = document.createElement("div");
+        const achievementbox3 = document.createElement("div");
+        const achievementbox4 = document.createElement("div");
+        const box1col = document.createElement("div");
+        const box2col = document.createElement("div");
+        const box3col = document.createElement("div");
+        const box4col = document.createElement("div");
+        const box1 = document.createElement("div");
+        const box2 = document.createElement("div");
+        const box3 = document.createElement("div");
+        const box4 = document.createElement("div");
+
+        //central divs--------------------------------------------------------------------------------------------------|
+
+        //define all classes for central divs
+        centraldiv.className =
+          "row text-center row-cols-2 row-cols-lg-4 g-2 g-lg-3";
+        //achievements---------------------------------------------------------------------------------------|
+        achievementbox1col.className = "col";
+        achievementbox2col.className = "col";
+        achievementbox3col.className = "col";
+        achievementbox4col.className = "col";
+        achievementbox1.className = "p-3  bg-dark text-white";
+        achievementbox2.className = "p-3  bg-dark text-white";
+        achievementbox3.className = "p-3  bg-dark text-white";
+        achievementbox4.className = "p-3  bg-dark text-white";
+        //racerboxes-----------------------------------------------------------------------------------|
+        box1col.className = "col";
+        box2col.className = "col";
+        box3col.className = "col";
+        box4col.className = "col";
+        box1.className = "p-3  bg-secondary";
+        box2.className = "p-3  bg-secondary";
+        box3.className = "p-3  bg-secondary";
+        box4.className = "p-3  bg-secondary";
+        //set ids for racerboxes
+        box1.id = race["race_code"] + race["type_of_race"] + "box1";
+        box2.id = race["race_code"] + race["type_of_race"] + "box2";
+        box3.id = race["race_code"] + race["type_of_race"] + "box3";
+        box4.id = race["race_code"] + race["type_of_race"] + "box4";
+        //define achievements
+        achievementbox1.textContent = race["acheivement1"];
+        achievementbox2.textContent = race["acheivement2"];
+        achievementbox3.textContent = race["acheivement3"];
+        achievementbox4.textContent = race["acheivement4"];
+
+        //properly append the achievements
+        achievementbox1.appendChild(acheivement1);
+        achievementbox2.appendChild(acheivement1);
+        achievementbox3.appendChild(acheivement1);
+        achievementbox4.appendChild(acheivement1);
+        achievementbox1col.appendChild(achievementbox1);
+        achievementbox2col.appendChild(achievementbox2);
+        achievementbox3col.appendChild(achievementbox3);
+        achievementbox4col.appendChild(achievementbox4);
+
+        //properly build name list containers
+        centraldiv.appendChild(achievementbox1col);
+        centraldiv.appendChild(achievementbox2col);
+        centraldiv.appendChild(achievementbox3col);
+        centraldiv.appendChild(achievementbox4col);
+        box1col.appendChild(box1);
+        box2col.appendChild(box2);
+        box3col.appendChild(box3);
+        box4col.appendChild(box4);
+        centraldiv.appendChild(box1col);
+        centraldiv.appendChild(box2col);
+        centraldiv.appendChild(box3col);
+        centraldiv.appendChild(box4col);
+
+        //bottom divs--------------------------------------------------------------------------------------------------|
+
+        //final logic--------------------------------------------------------------------------------------------------|
+
+        topdiv.dataset.count = race.total; // this could be useful in the future
+
         //add a solid thin black border to the div
-        div.classList.add("race-container");
-        raceCollection.push(div); // this is where it gets added
-        document.getElementById("raceContainer").appendChild(div);
+
+        topdiv.classList.add("race-container");
+        raceCollection.push(topdiv); // this is where it gets added
+
+        //append the central div to the top div
+        topdiv.appendChild(centraldiv);
+        document.getElementById("raceContainer").appendChild(topdiv);
       }
     });
 
@@ -203,11 +294,13 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
                 let a = {};
                 a[key] = x[key];
                 a["racecode"] = x["racecode"];
+                a["system"] = x["system"];
                 a["occurrence"] = 1;
                 arr2.push(a);
               } else {
                 k["occurrence"]++;
                 k["racecode"] = x["racecode"];
+                k["system"] = x["system"];
               }
             }
           });
@@ -219,6 +312,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
             let a = {};
             a[key] = x[key];
             a["racecode"] = x["racecode"];
+            a["system"] = x["system"];
             a["occurrence"] = 1;
             arr2.push(a);
           }
@@ -234,21 +328,10 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
     //check if name already added to a div
     let z = 0;
     do {
-      const outterdiv = document.createElement("div");
-      const innerdiv1 = document.createElement("div");
-      const innerdiv2 = document.createElement("div");
-      const innerdiv3 = document.createElement("div");
-      const innerdiv4 = document.createElement("div");
       const div1 = document.createElement("div");
       const div2 = document.createElement("div");
       const div3 = document.createElement("div");
       const div4 = document.createElement("div");
-      outterdiv.className =
-        "row text-center row-cols-2 row-cols-lg-5 g-2 g-lg-3";
-      innerdiv1.className = "col";
-      innerdiv2.className = "col";
-      innerdiv3.className = "col";
-      innerdiv4.className = "col";
       if (arr2[z].occurrence === 1) {
         div1.textContent += arr2[z]["name"];
       } else if (arr2[z].occurrence === 2) {
@@ -258,47 +341,31 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
       } else if (arr2[z].occurrence === 4) {
         div4.textContent += arr2[z]["name"];
       }
-      innerdiv1.appendChild(div1);
-      outterdiv.appendChild(innerdiv1);
-      innerdiv2.appendChild(div2);
-      outterdiv.appendChild(innerdiv2);
-      innerdiv4.appendChild(div4);
-      outterdiv.appendChild(innerdiv4);
+      linebreak = document.createElement("br");
+      div1.appendChild(linebreak);
+      linebreak = document.createElement("br");
+      div2.appendChild(linebreak);
+      linebreak = document.createElement("br");
+      div3.appendChild(linebreak);
+      linebreak = document.createElement("br");
+      div4.appendChild(linebreak);
       if (document.getElementById(arr2[z].racecode) === null) {
       } else {
-        document.getElementById(arr2[z].racecode).appendChild(outterdiv);
+        document
+          .getElementById(arr2[z].racecode + arr2[z].system + "box1")
+          .appendChild(div1);
+        document
+          .getElementById(arr2[z].racecode + arr2[z].system + "box2")
+          .appendChild(div2);
+        document
+          .getElementById(arr2[z].racecode + arr2[z].system + "box2")
+          .appendChild(div3);
+        document
+          .getElementById(arr2[z].racecode + arr2[z].system + "box3")
+          .appendChild(div4);
       }
       z++;
     } while (z < arr2.length);
-    // arr2.forEach((member) => {
-    //   //add rows and column here to force the names to go into lines respectively
-    //   console.log(arr2);
-
-    //   //add data to specified columns here
-    // });
-    // raceResults.forEach((race, index) => {
-    //   if (
-    //     race.total > 0 &&
-    //     race.active === "Y" &&
-    //     race["name_of_race"] !== ""
-    //   ) {
-    //     const div = document.createElement("div");
-    //     div.className =
-    //       "position-absolute p-5 top-50 start-50 translate-middle background-controller";
-    //     div.classList.add(index === 0 ? "ourshow" : "ourhidden");
-    //     const title = document.createElement("h2");
-    //     const memberContainer = document.createElement("div");
-    //     title.textContent = race["name_of_race"];
-    //     div.id = race["race_code"];
-    //     div.appendChild(title);
-    //     div.appendChild(memberContainer);
-    //     div.dataset.count = race.total; // this could be useful in the future
-    //     //add a solid thin black border to the div
-    //     div.classList.add("race-container");
-    //     raceCollection.push(div); // this is where it gets added
-    //     document.getElementById("raceContainer").appendChild(div);
-    //   }
-    // });
   }
 );
 startRaceInterval();
