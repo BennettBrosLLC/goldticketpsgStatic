@@ -112,11 +112,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
     raceResults = raceResults.sort((a, b) => b.total - a.total);
     raceResults.forEach((race, index) => {
       //race init
-      if (
-        race.total > 0 &&
-        race.active === "Y" &&
-        race["name_of_race"] !== ""
-      ) {
+      if (race.active === "Y" && race["name_of_race"] !== "") {
         //define useable elements for top divs--------------------------------------------------------------------------------------------------|
 
         const topdiv = document.createElement("div");
@@ -295,12 +291,12 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         prizebox4col.className = "col";
         prizebox5col.className = "col";
         prizebox6col.className = "col";
-        prizebox1col.style = "width: 180px;";
-        prizebox2col.style = "width: 180px;";
-        prizebox3col.style = "width: 180px;";
-        prizebox4col.style = "width: 180px;";
-        prizebox5col.style = "width: 180px;";
-        prizebox6col.style = "width: 180px;";
+        prizebox1col.style = "width: 10vw;";
+        prizebox2col.style = "width: 10vw;";
+        prizebox3col.style = "width: 10vw;";
+        prizebox4col.style = "width: 10vw;";
+        prizebox5col.style = "width: 10vw;";
+        prizebox6col.style = "width: 10vw;";
         prizeboxtextspan1.style = "display: block";
         prizeboxtextspan2.style = "display: block";
         prizeboxtextspan3.style = "display: block";
