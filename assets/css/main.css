@@ -33,14 +33,14 @@ body {
 .ourhiding {
   opacity: 0;
   transform: translateX(
-    -900px
+    -9000px
   ); /*this will need you to adjust for the TV or view port or it will just need to be way more than you want */
 }
 
 .ourhidden {
   opacity: 0;
   transform: translateX(
-    900px
+    9000px
   ); /*just make sure this is now to the right on the same length as hiding*/
   transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
 }

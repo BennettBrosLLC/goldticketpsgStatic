@@ -126,10 +126,6 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         const outtertitle = document.createElement("h1");
         const descriptor = document.createElement("h3");
         const innertitle = document.createElement("strong");
-        const acheivement1 = document.createElement("h3");
-        const acheivement2 = document.createElement("h3");
-        const acheivement3 = document.createElement("h3");
-        const acheivement4 = document.createElement("h3");
         const topper = document.createElement("img");
 
         //top divs--------------------------------------------------------------------------------------------------|
@@ -212,19 +208,19 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         achievementbox2col.className = "col";
         achievementbox3col.className = "col";
         achievementbox4col.className = "col";
-        achievementbox1.className = "p-3  bg-dark text-white";
-        achievementbox2.className = "p-3  bg-dark text-white";
-        achievementbox3.className = "p-3  bg-dark text-white";
-        achievementbox4.className = "p-3  bg-dark text-white";
+        achievementbox1.className = "p-3 bg-dark text-white";
+        achievementbox2.className = "p-3 bg-dark text-white";
+        achievementbox3.className = "p-3 bg-dark text-white";
+        achievementbox4.className = "p-3 bg-dark text-white";
         //racerboxes-----------------------------------------------------------------------------------|
         box1col.className = "col";
         box2col.className = "col";
         box3col.className = "col";
         box4col.className = "col";
-        box1.className = "p-3  bg-secondary";
-        box2.className = "p-3  bg-secondary";
-        box3.className = "p-3  bg-secondary";
-        box4.className = "p-3  bg-secondary";
+        box1.className = "p-3 centralbox bg-secondary";
+        box2.className = "p-3 centralbox bg-secondary";
+        box3.className = "p-3 centralbox bg-secondary";
+        box4.className = "p-3 centralbox bg-secondary";
         //set ids for racerboxes
         box1.id = race["race_code"] + race["type_of_race"] + "box1";
         box2.id = race["race_code"] + race["type_of_race"] + "box2";
@@ -237,10 +233,6 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         achievementbox4.textContent = race["acheivement4"];
 
         //properly append the achievements
-        achievementbox1.appendChild(acheivement1);
-        achievementbox2.appendChild(acheivement1);
-        achievementbox3.appendChild(acheivement1);
-        achievementbox4.appendChild(acheivement1);
         achievementbox1col.appendChild(achievementbox1);
         achievementbox2col.appendChild(achievementbox2);
         achievementbox3col.appendChild(achievementbox3);
