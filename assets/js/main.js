@@ -292,10 +292,26 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         prizeboxspan2.classname = "material-icons md-120";
         prizeboxspan3.classname = "material-icons md-120";
         prizeboxspan4.classname = "material-icons md-120";
-        race[Prize1] === "Y" ? "ourshow" : "ourhidden";
-        race[Prize2] === "Y" ? "ourshow" : "ourhidden";
-        race[Prize3] === "Y" ? "ourshow" : "ourhidden";
-        race[Prize4] === "Y" ? "ourshow" : "ourhidden";
+        prizeboxspan1.textContent =
+          race["Prize1"] === "Y" ? "unlocked" : "lock";
+        prizeboxspan2.textContent =
+          race["Prize2"] === "Y" ? "unlocked" : "lock";
+        prizeboxspan3.textContent =
+          race["Prize3"] === "Y" ? "unlocked" : "lock";
+        prizeboxspan4.textContent =
+          race["Prize4"] === "Y" ? "unlocked" : "lock";
+        prizebox1.appendChild(prizeboxspan1);
+        prizebox2.appendChild(prizeboxspan2);
+        prizebox3.appendChild(prizeboxspan3);
+        prizebox4.appendChild(prizeboxspan4);
+        prizebox1col.appendChild(prizebox1);
+        prizebox2col.appendChild(prizebox2);
+        prizebox3col.appendChild(prizebox3);
+        prizebox4col.appendChild(prizebox4);
+        bottomdiv.appendChild(prizebox1col);
+        bottomdiv.appendChild(prizebox2col);
+        bottomdiv.appendChild(prizebox3col);
+        bottomdiv.appendChild(prizebox4col);
 
         //final logic--------------------------------------------------------------------------------------------------|
 
@@ -307,6 +323,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         raceCollection.push(topdiv); // this is where it gets added
 
         //append the central div to the top div
+        centraldiv.appendChild(bottomdiv);
         topdiv.appendChild(centraldiv);
         document.getElementById("raceContainer").appendChild(topdiv);
       }
