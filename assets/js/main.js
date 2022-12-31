@@ -120,7 +120,6 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         //define useable elements for top divs--------------------------------------------------------------------------------------------------|
 
         const topdiv = document.createElement("div");
-        const centraldiv = document.createElement("div");
         const topofracediv = document.createElement("div");
         const topofraceimgdiv = document.createElement("div");
         const topofracetitlediv = document.createElement("div");
@@ -185,6 +184,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
 
         //define useable elements for top divs--------------------------------------------------------------------------------------------------|
 
+        const centraldiv = document.createElement("div");
         const achievementbox1col = document.createElement("div");
         const achievementbox2col = document.createElement("div");
         const achievementbox3col = document.createElement("div");
@@ -261,6 +261,41 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         centraldiv.appendChild(box4col);
 
         //bottom divs--------------------------------------------------------------------------------------------------|
+        const bottomdiv = document.createElement("div");
+        const prizebox1col = document.createElement("div");
+        const prizebox2col = document.createElement("div");
+        const prizebox3col = document.createElement("div");
+        const prizebox4col = document.createElement("div");
+        const prizebox1 = document.createElement("div");
+        const prizebox2 = document.createElement("div");
+        const prizebox3 = document.createElement("div");
+        const prizebox4 = document.createElement("div");
+        const prizeboxspan1 = document.createElement("span");
+        const prizeboxspan2 = document.createElement("span");
+        const prizeboxspan3 = document.createElement("span");
+        const prizeboxspan4 = document.createElement("span");
+        bottomdiv.className =
+          "fixed-bottom justify-content-end p-3 row row-cols-2 pt-xl-5 row-cols-lg-4 g-2 g-lg-3";
+        prizebox1col.className = "col";
+        prizebox2col.className = "col";
+        prizebox3col.className = "col";
+        prizebox4col.className = "col";
+        prizebox1col.style = "width: 180px;";
+        prizebox2col.style = "width: 180px;";
+        prizebox3col.style = "width: 180px;";
+        prizebox4col.style = "width: 180px;";
+        prizebox1.className = "p-3  bg-secondary";
+        prizebox2.className = "p-3  bg-secondary";
+        prizebox3.className = "p-3  bg-secondary";
+        prizebox4.className = "p-3  bg-secondary";
+        prizeboxspan1.classname = "material-icons md-120";
+        prizeboxspan2.classname = "material-icons md-120";
+        prizeboxspan3.classname = "material-icons md-120";
+        prizeboxspan4.classname = "material-icons md-120";
+        race[Prize1] === "Y" ? "ourshow" : "ourhidden";
+        race[Prize2] === "Y" ? "ourshow" : "ourhidden";
+        race[Prize3] === "Y" ? "ourshow" : "ourhidden";
+        race[Prize4] === "Y" ? "ourshow" : "ourhidden";
 
         //final logic--------------------------------------------------------------------------------------------------|
 
