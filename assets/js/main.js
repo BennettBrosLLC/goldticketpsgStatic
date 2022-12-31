@@ -88,6 +88,7 @@ const getSettingJSON = async () => {
 // outside of any other structures you need to define this so that its available in your script
 let raceCollection = [];
 let arr2 = [];
+let newRaceResults = [];
 
 Promise.all([getSettingJSON(), getObjJSON()]).then(
   ([raceResults, memberResults]) => {
@@ -102,6 +103,12 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
       raceResults[i].total++;
     });
 
+    function findFirstIndex(race) {
+      return race.active === "Y";
+    }
+
+    let FirstIndex = raceResults.find((race) => findFirstIndex(race));
+
     raceResults = raceResults.sort((a, b) => b.total - a.total);
     raceResults.forEach((race, index) => {
       if (
@@ -115,7 +122,11 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         const topofracetitlediv = document.createElement("div");
         div.className =
           "position-absolute p-5 top-50 start-50 translate-middle background-controller";
-        div.classList.add(index === 0 ? "ourshow" : "ourhidden");
+        div.classList.add(
+          FirstIndex.name_of_race === race["name_of_race"]
+            ? "ourshow"
+            : "ourhidden"
+        );
         const outtertitle = document.createElement("h1");
         const descriptor = document.createElement("h3");
         const innertitle = document.createElement("strong");
@@ -218,57 +229,53 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
 
     let arr = memberResults.data;
     let key = "name";
-    console.log(findOcc(arr, key));
+    findOcc(arr, key);
 
     //check if name already added to a div
-    let namealreadyadded = [];
-
-    memberResults.data.forEach((member) => {
-      //add rows and column here to force the names to go into lines respectively
-      for (let i = 0; i < arr2.length; i++) {
-        if (
-          member.name === arr2[i].name &&
-          !namealreadyadded.includes(member.name)
-        ) {
-          const outterdiv = document.createElement("div");
-          const innerdiv1 = document.createElement("div");
-          const innerdiv2 = document.createElement("div");
-          const innerdiv3 = document.createElement("div");
-          const innerdiv4 = document.createElement("div");
-          const div1 = document.createElement("div");
-          const div2 = document.createElement("div");
-          const div3 = document.createElement("div");
-          const div4 = document.createElement("div");
-          outterdiv.className =
-            "row text-center row-cols-2 row-cols-lg-5 g-2 g-lg-3";
-          innerdiv1.className = "col";
-          innerdiv2.className = "col";
-          innerdiv3.className = "col";
-          innerdiv4.className = "col";
-          if (arr2[i].occurrence === 1) {
-            namealreadyadded.push(member.name);
-            div1.textContent += member["name"];
-          } else if (arr2[i].occurrence === 2) {
-            namealreadyadded.push(member.name);
-            div2.textContent += member["name"];
-          } else if (arr2[i].occurrence === 3) {
-            namealreadyadded.push(member.name);
-            div3.textContent += member["name"];
-          } else if (arr2[i].occurrence === 4) {
-            namealreadyadded.push(member.name);
-            div4.textContent += member["name"];
-          }
-          innerdiv1.appendChild(div1);
-          outterdiv.appendChild(innerdiv1);
-          innerdiv2.appendChild(div2);
-          outterdiv.appendChild(innerdiv2);
-          innerdiv4.appendChild(div4);
-          outterdiv.appendChild(innerdiv4);
-          document.getElementById(member.racecode).appendChild(outterdiv);
-        }
+    let z = 0;
+    do {
+      const outterdiv = document.createElement("div");
+      const innerdiv1 = document.createElement("div");
+      const innerdiv2 = document.createElement("div");
+      const innerdiv3 = document.createElement("div");
+      const innerdiv4 = document.createElement("div");
+      const div1 = document.createElement("div");
+      const div2 = document.createElement("div");
+      const div3 = document.createElement("div");
+      const div4 = document.createElement("div");
+      outterdiv.className =
+        "row text-center row-cols-2 row-cols-lg-5 g-2 g-lg-3";
+      innerdiv1.className = "col";
+      innerdiv2.className = "col";
+      innerdiv3.className = "col";
+      innerdiv4.className = "col";
+      if (arr2[z].occurrence === 1) {
+        div1.textContent += arr2[z]["name"];
+      } else if (arr2[z].occurrence === 2) {
+        div2.textContent += arr2[z]["name"];
+      } else if (arr2[z].occurrence === 3) {
+        div3.textContent += arr2[z]["name"];
+      } else if (arr2[z].occurrence === 4) {
+        div4.textContent += arr2[z]["name"];
       }
-      //add data to specified columns here
-    });
+      innerdiv1.appendChild(div1);
+      outterdiv.appendChild(innerdiv1);
+      innerdiv2.appendChild(div2);
+      outterdiv.appendChild(innerdiv2);
+      innerdiv4.appendChild(div4);
+      outterdiv.appendChild(innerdiv4);
+      if (document.getElementById(arr2[z].racecode) === null) {
+      } else {
+        document.getElementById(arr2[z].racecode).appendChild(outterdiv);
+      }
+      z++;
+    } while (z < arr2.length);
+    // arr2.forEach((member) => {
+    //   //add rows and column here to force the names to go into lines respectively
+    //   console.log(arr2);
+
+    //   //add data to specified columns here
+    // });
     // raceResults.forEach((race, index) => {
     //   if (
     //     race.total > 0 &&
