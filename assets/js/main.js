@@ -141,7 +141,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
             ? "ourshow"
             : "ourhidden"
         );
-        topofracediv.className = "row border-bottom border-5 border-dark p-3";
+        topofracediv.className = "row p-3";
         topofraceimgdiv.className = "col justify-content-start";
         topofracetitlediv.className = "col p-3 justify-content-end text-center";
         topper.className = "boardtopper";
@@ -284,10 +284,14 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         prizebox2col.style = "width: 180px;";
         prizebox3col.style = "width: 180px;";
         prizebox4col.style = "width: 180px;";
-        prizebox1.className = "p-3  bg-secondary";
-        prizebox2.className = "p-3  bg-secondary";
-        prizebox3.className = "p-3  bg-secondary";
-        prizebox4.className = "p-3  bg-secondary";
+        prizebox1.className =
+          race["Prize1"] === "Y" ? "p-3  bg-warning" : "p-3  bg-secondary";
+        prizebox2.className =
+          race["Prize2"] === "Y" ? "p-3  bg-warning" : "p-3  bg-secondary";
+        prizebox3.className =
+          race["Prize3"] === "Y" ? "p-3  bg-warning" : "p-3  bg-secondary";
+        prizebox4.className =
+          race["Prize4"] === "Y" ? "p-3  bg-warning" : "p-3  bg-secondary";
         prizeboxspan1.className = "material-icons md-120";
         prizeboxspan2.className = "material-icons md-120";
         prizeboxspan3.className = "material-icons md-120";
