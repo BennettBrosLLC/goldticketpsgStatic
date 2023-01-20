@@ -31,6 +31,7 @@ const stopRaceInterval = () => {
   }
 };
 
+//Import User Submitted Racers
 const getObjData = async () => {
   const response = await fetch(
     "https://docs.google.com/spreadsheets/d/1YC4vzjepcRs5wcna0ZZFEPCcWJHKru-iZzKY3uWwuE4/pub?output=csv"
@@ -41,6 +42,7 @@ const getObjData = async () => {
   return response.blob();
 };
 
+//Import Active race info from Settings sheet
 const getSettingData = async () => {
   const response = await fetch(
     "https://docs.google.com/spreadsheets/d/1i2lAHd1gzd3G1-UGbj-MxwRmNSVcbSCF0DvjAD5Um50/pub?output=csv"
@@ -96,6 +98,8 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
 
     // add a "total" property to each race in the activeRaces array
     raceResults = raceResults.data.map((race) => ({ ...race, total: 0 }));
+    // console.log(raceResults);
+    // console.log(memberResults);
     memberResults.data.forEach((member) => {
       const i = raceResults.findIndex(
         (race) => race["race_code"] === member.racecode
