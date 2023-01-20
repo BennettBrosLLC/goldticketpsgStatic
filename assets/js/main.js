@@ -263,18 +263,21 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
 
         //bottom divs--------------------------------------------------------------------------------------------------|
         const bottomdiv = document.createElement("div");
+        const currentracecodecol = document.createElement("div");
         const prizebox1col = document.createElement("div");
         const prizebox2col = document.createElement("div");
         const prizebox3col = document.createElement("div");
         const prizebox4col = document.createElement("div");
         const prizebox5col = document.createElement("div");
         const prizebox6col = document.createElement("div");
+        const currentracecode = document.createElement("div");
         const prizebox1 = document.createElement("div");
         const prizebox2 = document.createElement("div");
         const prizebox3 = document.createElement("div");
         const prizebox4 = document.createElement("div");
         const prizebox5 = document.createElement("div");
         const prizebox6 = document.createElement("div");
+        const currentracecodespan = document.createElement("span");
         const prizeboxspan1 = document.createElement("span");
         const prizeboxspan2 = document.createElement("span");
         const prizeboxspan3 = document.createElement("span");
@@ -288,25 +291,27 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         const prizeboxtextspan5 = document.createElement("span");
         const prizeboxtextspan6 = document.createElement("span");
         bottomdiv.className =
-          "fixed-bottom justify-content-end p-3 row row-cols-2 pt-xl-5 row-cols-lg-6 g-2 g-lg-3 text-center";
-        prizebox1col.className = "col";
-        prizebox2col.className = "col";
-        prizebox3col.className = "col";
-        prizebox4col.className = "col";
-        prizebox5col.className = "col";
-        prizebox6col.className = "col";
-        prizebox1col.style = "width: 10vw;";
-        prizebox2col.style = "width: 10vw;";
-        prizebox3col.style = "width: 10vw;";
-        prizebox4col.style = "width: 10vw;";
-        prizebox5col.style = "width: 10vw;";
-        prizebox6col.style = "width: 10vw;";
+          "fixed-bottom justify-content-end row row-cols-2 pt-xl-5 row-cols-lg-auto g-2 g-lg-3 text-center";
+        prizebox1col.className = "col-1";
+        prizebox2col.className = "col-1";
+        prizebox3col.className = "col-1";
+        prizebox4col.className = "col-1";
+        prizebox5col.className = "col-1";
+        prizebox6col.className = "col-1";
+        currentracecodecol.className = "col-1";
+        // prizebox1col.style = "width: 10vw;";
+        // prizebox2col.style = "width: 10vw;";
+        // prizebox3col.style = "width: 10vw;";
+        // prizebox4col.style = "width: 10vw;";
+        // prizebox5col.style = "width: 10vw;";
+        // prizebox6col.style = "width: 10vw;";
         prizeboxtextspan1.style = "display: block";
         prizeboxtextspan2.style = "display: block";
         prizeboxtextspan3.style = "display: block";
         prizeboxtextspan4.style = "display: block";
         prizeboxtextspan5.style = "display: block";
         prizeboxtextspan6.style = "display: block";
+        currentracecodespan.style = "display: block";
         prizebox1.className =
           race["prize_level_unlock"] >= 1
             ? "p-3  bg-warning text-center rounded border-bottom border-end border-3 border-dark"
@@ -349,7 +354,8 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
           "fs-7 bg-transparent text-black text-center";
         prizeboxtextspan6.className =
           "fs-7 bg-transparent text-black text-center";
-
+        currentracecodespan.className =
+          "fs-1 bg-transparent text-black text-center";
         prizeboxspan1.textContent =
           race["prize_level_unlock"] >= 1 ? "lock_open" : "lock";
         prizeboxspan2.textContent =
@@ -368,12 +374,14 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         prizeboxtextspan4.textContent = race["Prize4"];
         prizeboxtextspan5.textContent = race["Prize5"];
         prizeboxtextspan6.textContent = race["Prize6"];
+        currentracecodespan.textContent = race["race_code"];
         prizebox1.appendChild(prizeboxspan1);
         prizebox2.appendChild(prizeboxspan2);
         prizebox3.appendChild(prizeboxspan3);
         prizebox4.appendChild(prizeboxspan4);
         prizebox5.appendChild(prizeboxspan5);
         prizebox6.appendChild(prizeboxspan6);
+        currentracecode.appendChild(currentracecodespan);
         prizebox1.appendChild(prizeboxtextspan1);
         prizebox2.appendChild(prizeboxtextspan2);
         prizebox3.appendChild(prizeboxtextspan3);
@@ -386,13 +394,14 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         prizebox4col.appendChild(prizebox4);
         prizebox5col.appendChild(prizebox5);
         prizebox6col.appendChild(prizebox6);
+        currentracecodecol.appendChild(currentracecode);
+        bottomdiv.appendChild(currentracecodecol);
         bottomdiv.appendChild(prizebox1col);
         bottomdiv.appendChild(prizebox2col);
         bottomdiv.appendChild(prizebox3col);
         bottomdiv.appendChild(prizebox4col);
         bottomdiv.appendChild(prizebox5col);
         bottomdiv.appendChild(prizebox6col);
-
         //final logic--------------------------------------------------------------------------------------------------|
 
         topdiv.dataset.count = race.total; // this could be useful in the future
