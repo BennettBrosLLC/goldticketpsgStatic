@@ -291,14 +291,14 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         const prizeboxtextspan5 = document.createElement("span");
         const prizeboxtextspan6 = document.createElement("span");
         bottomdiv.className =
-          "fixed-bottom justify-content-end row row-cols-2 pt-xl-5 row-cols-lg-auto g-2 g-lg-3 text-center";
+          "fixed-bottom justify-content-between row row-cols-2 pt-xl-5 row-cols-lg-auto g-2 g-lg-3 text-center";
         prizebox1col.className = "col-1";
         prizebox2col.className = "col-1";
         prizebox3col.className = "col-1";
         prizebox4col.className = "col-1";
         prizebox5col.className = "col-1";
         prizebox6col.className = "col-1";
-        currentracecodecol.className = "col-1";
+        currentracecodecol.className = "col-1 justify-content-center mx-auto my-auto";
         // prizebox1col.style = "width: 10vw;";
         // prizebox2col.style = "width: 10vw;";
         // prizebox3col.style = "width: 10vw;";
@@ -311,7 +311,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         prizeboxtextspan4.style = "display: block";
         prizeboxtextspan5.style = "display: block";
         prizeboxtextspan6.style = "display: block";
-        currentracecodespan.style = "display: block";
+        currentracecodespan.style = "display: block; font-size: 6rem;";
         prizebox1.className =
           race["prize_level_unlock"] >= 1
             ? "p-3  bg-warning text-center rounded border-bottom border-end border-3 border-dark"
@@ -355,7 +355,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         prizeboxtextspan6.className =
           "fs-7 bg-transparent text-black text-center";
         currentracecodespan.className =
-          "fs-1 bg-transparent text-black text-center";
+          "bg-transparent text-black text-center font-monospace";
         prizeboxspan1.textContent =
           race["prize_level_unlock"] >= 1 ? "lock_open" : "lock";
         prizeboxspan2.textContent =
