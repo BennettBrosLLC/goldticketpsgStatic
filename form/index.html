@@ -124,8 +124,11 @@
           data: data,
           contentType: "application/json",
           dataType: "jsonp",
-          complete: function () {
+          success: function (data) {
             alert("Entry Submitted!");
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert(errorThrown);
           },
         });
       });
