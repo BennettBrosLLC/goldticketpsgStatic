@@ -126,23 +126,19 @@
           dataType: "jsonp",
           statusCode: {
             200: function (response) {
-              alert('1');
-              AfterSavedAll();
+              alert("Entry Submitted!");
             },
             201: function (response) {
-              alert('1');
-              AfterSavedAll();
+              alert('Invalid Entry');
             },
             400: function (response) {
-              alert('1');
-              bootbox.alert('<span style="color:Red;">Error While Saving Outage Entry Please Check</span>', function () { });
+              alert('Invalid Entry');
             },
             404: function (response) {
-              alert('1');
-              bootbox.alert('<span style="color:Red;">Error While Saving Outage Entry Please Check</span>', function () { });
+              alert('1Invalid Entry');
             }
         }, success: function () {
-            alert('1');
+            alert("Entry Submitted!");
         },
         });
       });
