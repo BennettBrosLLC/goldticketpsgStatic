@@ -102,42 +102,32 @@
           });
           return v;
         };
-        
-        
+
         // question
+        var racecode = $("#racecode").val() || "no set";
         var staff = $("#staff_member").val() || "no set";
         var emailphone = $("#emailphone").val() || "no set";
 
         var phoneoremail = "none@none.com";
-        
-        var racecode = $("#racecode").val() || "no set";
-        console.log(racecode);
-        const fruits = ["MTG01" , "MTG02" , "MTG03" , "MTG04" , "MTG05" , "MTG06" , "MTG07" , "MTG08" , "MTG09" , "MTG10" , "MTG11" , "MTG12" , "MTG13" , "MTG14" , "MTG15" , "MTG16" , "MTG17" , "MTG18" , "MTG19" , "MTG20" , "YGO01" , "YGO02" , "YGO03" , "YGO04" , "YGO05" , "YGO06" , "YGO07" , "YGO08" , "YGO09" , "YGO10" , "YGO11" , "YGO12" , "YGO13" , "YGO14" , "YGO15" , "YGO16" , "YGO17" , "YGO18" , "YGO19" , "YGO20" , "BDG01" , "BDG02" , "BDG03" , "BDG04" , "BDG05" , "BDG06" , "BDG07" , "BDG08" , "BDG09" , "BDG10" , "BDG11" , "BDG12" , "BDG13" , "BDG14" , "BDG15" , "BDG16" , "BDG17" , "BDG18" , "BDG19" , "BDG20" , "WRH01" , "WRH02" , "WRH03" , "WRH04" , "WRH05" , "WRH06" , "WRH07" , "WRH08" , "WRH09" , "WRH10" , "WRH11" , "WRH12" , "WRH13" , "WRH14" , "WRH15" , "WRH16" , "WRH17" , "WRH18" , "WRH19" , "WRH20" , "DND01" , "DND02" , "DND03" , "DND04" , "DND05" , "DND06" , "DND07" , "DND08" , "DND09" , "DND10" , "DND11" , "DND12" , "DND13" , "DND14" , "DND15" , "DND16" , "DND17" , "DND18" , "DND19" , "DND20" , "VAN01" , "VAN02" , "VAN03" , "VAN04" , "VAN05" , "VAN06" , "VAN07" , "VAN08" , "VAN09" , "VAN10" , "VAN11" , "VAN12" , "VAN13" , "VAN14" , "VAN15" , "VAN16" , "VAN17" , "VAN18" , "VAN19" , "VAN20" , "PFR01" , "PFR02" , "PFR03" , "PFR04" , "PFR05" , "PFR06" , "PFR07" , "PFR08" , "PFR09" , "PFR10" , "PFR11" , "PFR12" , "PFR13" , "PFR14" , "PFR15" , "PFR16" , "PFR17" , "PFR18" , "PFR19" , "PFR20"];
-        if (fruits.includes(racecode)){
-                    // post
-                    var data = {
-            "entry.1293020548": name,
-            "entry.1907545839": gamesystem(),
-            "entry.2130424561": racecode,
-            "entry.1147166433": staff,
-            "entry.1924036158": emailphone,
-          };
-          $.ajax({
-            type: "POST",
-            url: "https://docs.google.com/forms/u/0/d/19CyjMEhOzM6WLfulBw0RBWFgimBKltKFWl6wXg_lXhg/formResponse",
-            data: data,
-            contentType: "application/json",
-            dataType: "jsonp",
-            complete: function () {
-              alert("Entry Submitted!");
-            },
-          });
 
-        } else {
-          alert("Racecode Invalid!");
-          event.preventDefault();
-        }
-
+        // post
+        var data = {
+          "entry.1293020548": name,
+          "entry.1907545839": gamesystem(),
+          "entry.2130424561": racecode,
+          "entry.1147166433": staff,
+          "entry.1924036158": emailphone,
+        };
+        $.ajax({
+          type: "POST",
+          url: "https://docs.google.com/forms/u/0/d/19CyjMEhOzM6WLfulBw0RBWFgimBKltKFWl6wXg_lXhg/formResponse",
+          data: data,
+          contentType: "application/json",
+          dataType: "jsonp",
+          complete: function () {
+            alert("Entry Submitted!");
+          },
+        });
       });
     });
   </script>
