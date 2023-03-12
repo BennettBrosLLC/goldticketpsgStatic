@@ -1,36 +1,3 @@
-const raceIntervalCallback = () => {
-  const currentDivIndex = raceCollection.findIndex((div) =>
-    div.classList.contains("ourshow")
-  );
-  const nextDivIndex =
-    currentDivIndex === raceCollection.length - 1 ? 0 : currentDivIndex + 1;
-  const currentDiv = raceCollection[currentDivIndex];
-  const nextDiv = raceCollection[nextDivIndex];
-  currentDiv.classList.remove("ourshow");
-  currentDiv.classList.add("ourhiding");
-  nextDiv.classList.remove("ourhidden");
-  nextDiv.classList.add("ourshow");
-  setTimeout(() => {
-    currentDiv.classList.remove("ourhiding");
-    currentDiv.classList.add("ourhidden");
-  }, 250);
-};
-
-let raceInterval = false;
-
-const startRaceInterval = () => {
-  if (!raceInterval) {
-    raceInterval = setInterval(raceIntervalCallback, 30000);
-  }
-};
-
-const stopRaceInterval = () => {
-  if (raceInterval) {
-    clearInterval(raceInterval);
-    raceInterval = false;
-  }
-};
-
 //Import User Submitted Racers
 const getObjData = async () => {
   const response = await fetch(
@@ -108,7 +75,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
     });
 
     function findFirstIndex(race) {
-      return race.active === "Y";
+      return race.active === "";
     }
 
     let FirstIndex = raceResults.find((race) => findFirstIndex(race));
@@ -116,7 +83,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
     raceResults = raceResults.sort((a, b) => b.total - a.total);
     raceResults.forEach((race, index) => {
       //race init
-      if (race.active === "Y" && race["name_of_race"] !== "") {
+      if (race.active === "Y" || race.complete === "Y" && race["name_of_race"] !== "") {
         //define useable elements for top divs--------------------------------------------------------------------------------------------------|
 
         const topdiv = document.createElement("div");
@@ -131,12 +98,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         //top divs--------------------------------------------------------------------------------------------------|
 
         topdiv.className =
-          "position-absolute p-5 top-50 start-50 translate-middle border-5 background-controller rounded border border-warning";
-        topdiv.classList.add(
-          FirstIndex.name_of_race === race["name_of_race"]
-            ? "ourshow"
-            : "ourhidden"
-        );
+          "p-5 my-5 mx-5 border-5 background-controller rounded border border-warning";
         topofracediv.className = "row p-3";
         topofraceimgdiv.className = "col justify-content-start";
         topofracetitlediv.className = "col p-3 justify-content-end text-center";
@@ -291,7 +253,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         const prizeboxtextspan5 = document.createElement("span");
         const prizeboxtextspan6 = document.createElement("span");
         bottomdiv.className =
-          "fixed-bottom justify-content-between row row-cols-2 pt-xl-5 row-cols-lg-auto g-2 g-lg-3 text-center";
+          "justify-content-between row row-cols-2 pt-xl-5 row-cols-lg-auto g-2 g-lg-3 text-center";
         prizebox1col.className = "col-1";
         prizebox2col.className = "col-1";
         prizebox3col.className = "col-1";
@@ -299,12 +261,6 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         prizebox5col.className = "col-1";
         prizebox6col.className = "col-1";
         currentracecodecol.className = "col-1 justify-content-center mx-auto my-auto";
-        // prizebox1col.style = "width: 10vw;";
-        // prizebox2col.style = "width: 10vw;";
-        // prizebox3col.style = "width: 10vw;";
-        // prizebox4col.style = "width: 10vw;";
-        // prizebox5col.style = "width: 10vw;";
-        // prizebox6col.style = "width: 10vw;";
         prizeboxtextspan1.style = "display: block";
         prizeboxtextspan2.style = "display: block";
         prizeboxtextspan3.style = "display: block";
@@ -355,53 +311,53 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         prizeboxtextspan6.className =
           "fs-7 bg-transparent text-black text-center";
         currentracecodespan.className =
-          "bg-transparent text-black text-center font-monospace";
-        prizeboxspan1.textContent =
-          race["prize_level_unlock"] >= 1 ? "lock_open" : "lock";
-        prizeboxspan2.textContent =
-          race["prize_level_unlock"] >= 2 ? "lock_open" : "lock";
-        prizeboxspan3.textContent =
-          race["prize_level_unlock"] >= 3 ? "lock_open" : "lock";
-        prizeboxspan4.textContent =
-          race["prize_level_unlock"] >= 4 ? "lock_open" : "lock";
-        prizeboxspan5.textContent =
-          race["prize_level_unlock"] >= 5 ? "lock_open" : "lock";
-        prizeboxspan6.textContent =
-          race["prize_level_unlock"] >= 6 ? "lock_open" : "lock";
-        prizeboxtextspan1.textContent = race["Prize1"];
-        prizeboxtextspan2.textContent = race["Prize2"];
-        prizeboxtextspan3.textContent = race["Prize3"];
-        prizeboxtextspan4.textContent = race["Prize4"];
-        prizeboxtextspan5.textContent = race["Prize5"];
-        prizeboxtextspan6.textContent = race["Prize6"];
+          "bg-transparent text-black text-center text-audiowide";
+        // prizeboxspan1.textContent =
+        //   race["prize_level_unlock"] >= 1 ? "lock_open" : "lock";
+        // prizeboxspan2.textContent =
+        //   race["prize_level_unlock"] >= 2 ? "lock_open" : "lock";
+        // prizeboxspan3.textContent =
+        //   race["prize_level_unlock"] >= 3 ? "lock_open" : "lock";
+        // prizeboxspan4.textContent =
+        //   race["prize_level_unlock"] >= 4 ? "lock_open" : "lock";
+        // prizeboxspan5.textContent =
+        //   race["prize_level_unlock"] >= 5 ? "lock_open" : "lock";
+        // prizeboxspan6.textContent =
+        //   race["prize_level_unlock"] >= 6 ? "lock_open" : "lock";
+        // prizeboxtextspan1.textContent = race["Prize1"];
+        // prizeboxtextspan2.textContent = race["Prize2"];
+        // prizeboxtextspan3.textContent = race["Prize3"];
+        // prizeboxtextspan4.textContent = race["Prize4"];
+        // prizeboxtextspan5.textContent = race["Prize5"];
+        // prizeboxtextspan6.textContent = race["Prize6"];
         currentracecodespan.textContent = race["race_code"];
-        prizebox1.appendChild(prizeboxspan1);
-        prizebox2.appendChild(prizeboxspan2);
-        prizebox3.appendChild(prizeboxspan3);
-        prizebox4.appendChild(prizeboxspan4);
-        prizebox5.appendChild(prizeboxspan5);
-        prizebox6.appendChild(prizeboxspan6);
+        // prizebox1.appendChild(prizeboxspan1);
+        // prizebox2.appendChild(prizeboxspan2);
+        // prizebox3.appendChild(prizeboxspan3);
+        // prizebox4.appendChild(prizeboxspan4);
+        // prizebox5.appendChild(prizeboxspan5);
+        // prizebox6.appendChild(prizeboxspan6);
         currentracecode.appendChild(currentracecodespan);
-        prizebox1.appendChild(prizeboxtextspan1);
-        prizebox2.appendChild(prizeboxtextspan2);
-        prizebox3.appendChild(prizeboxtextspan3);
-        prizebox4.appendChild(prizeboxtextspan4);
-        prizebox5.appendChild(prizeboxtextspan5);
-        prizebox6.appendChild(prizeboxtextspan6);
-        prizebox1col.appendChild(prizebox1);
-        prizebox2col.appendChild(prizebox2);
-        prizebox3col.appendChild(prizebox3);
-        prizebox4col.appendChild(prizebox4);
-        prizebox5col.appendChild(prizebox5);
-        prizebox6col.appendChild(prizebox6);
+        // prizebox1.appendChild(prizeboxtextspan1);
+        // prizebox2.appendChild(prizeboxtextspan2);
+        // prizebox3.appendChild(prizeboxtextspan3);
+        // prizebox4.appendChild(prizeboxtextspan4);
+        // prizebox5.appendChild(prizeboxtextspan5);
+        // prizebox6.appendChild(prizeboxtextspan6);
+        // prizebox1col.appendChild(prizebox1);
+        // prizebox2col.appendChild(prizebox2);
+        // prizebox3col.appendChild(prizebox3);
+        // prizebox4col.appendChild(prizebox4);
+        // prizebox5col.appendChild(prizebox5);
+        // prizebox6col.appendChild(prizebox6);
         currentracecodecol.appendChild(currentracecode);
         bottomdiv.appendChild(currentracecodecol);
-        bottomdiv.appendChild(prizebox1col);
-        bottomdiv.appendChild(prizebox2col);
-        bottomdiv.appendChild(prizebox3col);
-        bottomdiv.appendChild(prizebox4col);
-        bottomdiv.appendChild(prizebox5col);
-        bottomdiv.appendChild(prizebox6col);
+        // bottomdiv.appendChild(prizebox1col);
+        // bottomdiv.appendChild(prizebox2col);
+        // bottomdiv.appendChild(prizebox3col);
+        // bottomdiv.appendChild(prizebox4col);
+        // bottomdiv.appendChild(prizebox5col);
+        // bottomdiv.appendChild(prizebox6col);
         //final logic--------------------------------------------------------------------------------------------------|
 
         topdiv.dataset.count = race.total; // this could be useful in the future
