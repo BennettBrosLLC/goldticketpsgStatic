@@ -98,7 +98,7 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
         //top divs--------------------------------------------------------------------------------------------------|
 
         topdiv.className =
-          "p-5 my-5 mx-5 border-5 background-controller rounded border border-warning";
+          "p-5 my-5 border-5 background-controller rounded border border-warning mx-auto";
         topofracediv.className = "row p-3";
         topofraceimgdiv.className = "col justify-content-start";
         topofracetitlediv.className = "col p-3 justify-content-end text-center";
@@ -374,98 +374,87 @@ Promise.all([getSettingJSON(), getObjJSON()]).then(
       }
     });
 
-    function findOcc(arr, key) {
-      // let arr2 = [];
-      arr.forEach((x) => {
-        // Checking if there is any object in arr2
-        // which contains the key value
-        if (
-          arr2.some((val) => {
-            return val[key] == x[key];
-          })
-        ) {
-          // If yes! then increase the occurrence by 1
-          arr2.forEach((k) => {
-            if (k[key] === x[key] && x["Approved"] === "Y") {
-              if (k["racecode"] != x["racecode"]) {
-                let a = {};
-                a[key] = x[key];
-                a["racecode"] = x["racecode"];
-                a["system"] = x["system"];
-                a["occurrence"] = 1;
-                arr2.push(a);
-              } else {
-                k["occurrence"]++;
-                k["racecode"] = x["racecode"];
-                k["system"] = x["system"];
-              }
+    function findOcc(inputArray, keyArr, constValidation) {
+      let outputArray = [];
+      inputArray.forEach((input) => {
+        // Checking if the "Approved" value is equal to "Y"
+        if (input.Approved === "Y") {
+          // Checking if there is any object in outputArray
+          // which contains ALL the key values
+          let found = false;
+          outputArray.forEach((val) => {
+            let allKeysMatch = keyArr.every((key) => val[key] === input[key]);
+            if (allKeysMatch) {
+              found = true;
+              val.occurrence++;
             }
           });
-        } else {
-          // If not! Then create a new object initialize
-          // it with the present iteration key's value and
-          // set the occurrence to 1
-          if (x["Approved"] === "Y") {
-            let a = {};
-            a[key] = x[key];
-            a["racecode"] = x["racecode"];
-            a["system"] = x["system"];
-            a["occurrence"] = 1;
-            arr2.push(a);
+          if (!found) {
+            let temp = {};
+            keyArr.forEach((key) => {
+              temp[key] = input[key];
+            });
+            temp["occurrence"] = 1;
+            outputArray.push(temp);
           }
         }
       });
-      return arr2;
+      return outputArray;
     }
-
+    
     let arr = memberResults.data;
-    let key = "name";
-    findOcc(arr, key);
-
+    //if we need to add additional criteria to the new array and validate based on them they need to be added to the key
+    let key = ["name", "racecode", "system"];
+    //treat this column from the original array as the criteria required to allow an entry from the original array to pass to the new array
+    let constValidation = {
+      "Approved": "Y"
+    };
+    let arr2 = findOcc(arr, key, constValidation);
+    //console.log(arr2);
     //check if name already added to a div
     let z = 0;
     do {
+      //console.log("arr2[z]:", arr2[z]);
+      //console.log("racecode + system:", arr2[z].racecode + arr2[z].system);
       const div1 = document.createElement("div");
       const div2 = document.createElement("div");
       const div3 = document.createElement("div");
       const div4 = document.createElement("div");
       if (arr2[z].occurrence === 1) {
+        //console.log("Adding to div1:", arr2[z]["name"]);
         div1.textContent += arr2[z]["name"];
         linebreak = document.createElement("br");
         div1.appendChild(linebreak);
       } else if (arr2[z].occurrence === 2) {
+        //console.log("Adding to div2:", arr2[z]["name"]);
         div2.textContent += arr2[z]["name"];
         linebreak = document.createElement("br");
         div2.appendChild(linebreak);
       } else if (arr2[z].occurrence === 3) {
+        //console.log("Adding to div3:", arr2[z]["name"]);
         div3.textContent += arr2[z]["name"];
         linebreak = document.createElement("br");
         div3.appendChild(linebreak);
       } else if (arr2[z].occurrence === 4) {
+        //console.log("Adding to div4:", arr2[z]["name"]);
         div4.textContent += arr2[z]["name"];
         linebreak = document.createElement("br");
         div4.appendChild(linebreak);
       }
-      if (document.getElementById(arr2[z].racecode) === null) {
+      if (document.getElementById(arr2[z].racecode + arr2[z].system + "box1") === null) {
+        //console.log("Could not find element with id:", arr2[z].racecode + arr2[z].system + "box1");
       } else {
-        document
-          .getElementById(arr2[z].racecode + arr2[z].system + "box1")
-          .appendChild(div1);
-        document
-          .getElementById(arr2[z].racecode + arr2[z].system + "box2")
-          .appendChild(div2);
-        document
-          .getElementById(arr2[z].racecode + arr2[z].system + "box2")
-          .appendChild(div3);
-        document
-          .getElementById(arr2[z].racecode + arr2[z].system + "box3")
-          .appendChild(div4);
+        //console.log("Found element with id:", arr2[z].racecode + arr2[z].system + "box1");
+        document.getElementById(arr2[z].racecode + arr2[z].system + "box1").appendChild(div1);
+        document.getElementById(arr2[z].racecode + arr2[z].system + "box2").appendChild(div2);
+        document.getElementById(arr2[z].racecode + arr2[z].system + "box2").appendChild(div3);
+        document.getElementById(arr2[z].racecode + arr2[z].system + "box3").appendChild(div4);
       }
       z++;
     } while (z < arr2.length);
   }
 );
-startRaceInterval();
+// startRaceInterval();
 /**
  * Array Key value compare and count.
  *
@@ -502,3 +491,12 @@ const sortArray = (arr) => {
     return Object.values(b)[0] - Object.values(a)[0];
   });
 };
+
+
+// 1/11/2023 21:31:43	Gerry Blumer	mtg	MTG02	Andrew	psg.ontario.or@gmail.com	Y	
+// 1/18/2023 18:36:57	Gerry Blumer	mtg	MTG02	Andrew	psg.ontario.or@gmail.com	Y	
+// 1/25/2023 18:51:24	Gerry Blumer	mtg	MTG02	Andrew	blumer1@hotmail.com	Y	
+// 2/8/2023 18:26:59	Gerry Blumer	mtg	MTG02	Andrew 	blumer1@hotmail.com	Y	
+// 3/8/2023 18:34:17	Gerald Blumer	mtg	MTG02	Andrew	psg.ontario.or@gmail.com	N	
+// 1/20/2023 17:03:44	Gart Hardin	mtg	MTG02	Andrew	garthardin@yahoo.com	Y	
+// 1/27/2023 19:22:32	Gart Hardin	mtg	MTG02	Andrew	garthardin@yahoo.com	Y	
